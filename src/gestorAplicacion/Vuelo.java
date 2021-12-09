@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Vuelo {
 	
+	
 	private int ID;
 	private int precio;
 	private String origen;
