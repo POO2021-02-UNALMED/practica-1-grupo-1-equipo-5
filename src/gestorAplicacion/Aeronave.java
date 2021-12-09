@@ -51,6 +51,8 @@ public abstract class Aeronave {
 		this.nombre = nombre;
 	}
 
+	
+	
 	// METODOS
 
 	public void ToString() {
