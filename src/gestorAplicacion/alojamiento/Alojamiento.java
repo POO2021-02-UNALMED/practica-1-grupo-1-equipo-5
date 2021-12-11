@@ -1,4 +1,4 @@
-package gestorAplicacion;
+package gestorAplicacion.Alojamiento;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ public class Alojamiento {
 	private long precio_dia;
 	private int estrellas;
 	private static ArrayList<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
-	
+
 	//CONSTRUCTORES
 	public Alojamiento(String nombre, String locacion, long precio_dia, int estrellas) {
 		this.nombre = nombre;
@@ -18,47 +18,47 @@ public class Alojamiento {
 		alojamientos.add(this);
 	}
 
-	
+
 	//CALCULAR PRECIO DEL ALOJAMIENTO
 	public int calcularPrecio(int dias) {
 		return (int)( dias * this.precio_dia);
 	}
-	
+
 	// BUSCAR ALOJAMIENTOS POR...
-	
+
 	public static ArrayList<Alojamiento> buscarAlojamientoPorUbicacion (String ubicacion) {
 		ArrayList<Alojamiento> alojamientosEnUbicacion = new ArrayList<Alojamiento>();
-		for (int i = 0; i < alojamientos.size(); i++) 
+		for (int i = 0; i < alojamientos.size(); i++)
 		{
 		  if (alojamientos.get(i).getLocacion().equals(ubicacion))
 		  {
-			  alojamientosEnUbicacion.add(alojamientos.get(i)); 
-		  }  
+			  alojamientosEnUbicacion.add(alojamientos.get(i));
+		  }
 		}
-		return alojamientosEnUbicacion; 
+		return alojamientosEnUbicacion;
 	}
-	
+
 	public static Alojamiento buscarAlojamientoPorNombre(String nombre) {
-		for (int i = 0; i < alojamientos.size(); i++) 
+		for (int i = 0; i < alojamientos.size(); i++)
 		{
 		  if (alojamientos.get(i).getNombre().equals(nombre))
 		  {
-			  return alojamientos.get(i); 
-		  }  
+			  return alojamientos.get(i);
+		  }
 		}
 		return null;
 	}
-		
+
 	//GETTERS Y SETTERS
-		
+
 		public void setLocacion(String locacion) {
 			this.locacion = locacion;
 		}
-		
+
 		public void setPrecio_dias(long precio_dias) {
 			this.precio_dia = precio_dias;
 		}
-		
+
 		public static ArrayList<Alojamiento> getAlojamientos() {
 			return alojamientos;
 		}
@@ -66,7 +66,7 @@ public class Alojamiento {
 		public static void setAlojamientos(ArrayList<Alojamiento> alojamientos) {
 			Alojamiento.alojamientos = alojamientos;
 		}
-		
+
 		public long getPrecio_dia() {
 			return precio_dia;
 		}
@@ -94,6 +94,6 @@ public class Alojamiento {
 		public void setNombre(String nombre) {
 			this.nombre = nombre;
 		}
-		
+
 	}
 
