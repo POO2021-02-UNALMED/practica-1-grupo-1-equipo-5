@@ -671,7 +671,30 @@ public class Admin {
 // METODOS AUXILIARES - TABLA ALOJAMIENTOS
 	static boolean mostrarAlojamientosPorUbicacion(String ubicacion) 
 	{
-		return false;
+		System.out.println("Estos son los alojamientos disponibles en " + ubicacion + ":" );
+		boolean hayAlojamientos = false;
+		ArrayList<Alojamiento> alojamientosDisponibles = Alojamiento.buscarAlojamientoPorUbicacion(ubicacion);
+		if (alojamientosDisponibles.size() != 0) {
+			hayAlojamientos = true;
+			System.out.println();
+			System.out.println("-------------------------------------------------------------"); 
+			System.out.printf("%10s %15s %18s %12s", "NOMBRE", "LOCACION", "PRECIO POR DIA", "ESTRELLAS");  
+			System.out.println();  
+			System.out.println("-------------------------------------------------------------");
+			
+			for (int j = 0; j < alojamientosDisponibles.size(); j++) {
+				System.out.format("%13s %11s %16s %11s", alojamientosDisponibles.get(j).getNombre(), alojamientosDisponibles.get(j).getLocacion(), alojamientosDisponibles.get(j).getPrecio_dia(), alojamientosDisponibles.get(j).getEstrellas());  
+				System.out.println(); 
+				}
+			
+			System.out.println("-------------------------------------------------------------");  
+			System.out.println();
+				
+		}else {
+			System.out.println("Lo sentimos, no tenemos alojamientos disponibles para ese destino");
+			System.out.println();
+		}
+		return hayAlojamientos;
 	}
 	
 //METODOS AUXILIARES - ELEGIR SILLA
