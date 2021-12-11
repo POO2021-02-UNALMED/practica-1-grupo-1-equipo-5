@@ -1,10 +1,12 @@
-package gestorAplicacion;
+package gestorAplicacion.hangar;
+import gestorAplicacion.adminVuelos.*;
 
 public abstract class Aeronave {
 	// ATRIBUTOS
 	public final int Gasto_gasolina = 120;
 	private String nombre;
 	private Aerolinea aerolinea;
+	private boolean descompuesto;
 	private Silla[] SILLAS_ECONOMICAS;
 	private Silla[] SILLAS_EJECUTIVAS;
 
@@ -55,6 +57,14 @@ public abstract class Aeronave {
 	
 	// METODOS
 
+	public boolean isDescompuesto() {
+		return descompuesto;
+	}
+
+	public void setDescompuesto(boolean descompuesto) {
+		this.descompuesto = descompuesto;
+	}
+
 	public void ToString() {
 		System.out.println("FALTA DEFINIR");
 	}
@@ -62,14 +72,14 @@ public abstract class Aeronave {
 	// BUSCAR SILLAS POR UBICACION Y TIPO
 	public Silla buscarSillaPorUbicacionyTipo(Ubicacion ubicacion, String tipo) {
 
-		if (tipo.equals("ECONOMICA")) {
+		if (tipo.equalsIgnoreCase("ECONOMICA")) {
 			for (Silla i : SILLAS_ECONOMICAS) {
 				if (i.isEstado() & i.getUbicacion().equals(ubicacion)) {
 					// System.out.println("Su numero de silla es: "+i.getNumero_de_silla());
 					return i;
 				}
 			}
-		} else if (tipo.equals("EJECUTIVA")) {
+		} else if (tipo.equalsIgnoreCase("EJECUTIVA")) {
 			for (Silla i : SILLAS_EJECUTIVAS) {
 				if (i.isEstado() & i.getUbicacion().equals(ubicacion)) {
 					// System.out.println("Su numero de silla es: "+i.getNumero_de_silla());
