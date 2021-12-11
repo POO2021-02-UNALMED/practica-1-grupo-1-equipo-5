@@ -1,4 +1,5 @@
-package gestorAplicacion;
+package gestorAplicacion.adminVuelos;
+
 public class Pasajero {
 
 	private String pasaporte;
@@ -15,9 +16,9 @@ public class Pasajero {
 		this.email = email;
 		tiquete.setPasajero(this);
 	}
-	
+
 	//GETTERS Y SETTERS
-	
+
 	public String getPasaporte() {
 		return pasaporte;
 	}
@@ -42,7 +43,7 @@ public class Pasajero {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
+
 
 }
