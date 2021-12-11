@@ -94,13 +94,95 @@ public class Admin {
 			printVuelos(aerolinea.vuelosDisponibles(aerolinea.getVuelos())); //SE MUESTRAN LOS VUELOS QUE NO EST�N COMPLETOS
 			printSeparador();
 			}
-	
 	}
 	
 
 // CASE 2 MAIN: GENERAR TIQUETE DE COMPRA DE VUELO
 	static void generarTiquete()
 	{
+		System.out.println("Quieres buscar un vuelo por:");
+		System.out.println("1. Destino");
+		System.out.println("2. Destino y fecha");
+		System.out.println("3. Regresar");
+		int opcion = sc.nextInt();
+		while(opcion != 1 & opcion != 2 & opcion != 3)
+		{
+			System.out.println("Por favor ingresa una opcion valida");
+			opcion = sc.nextInt();
+		}
+		
+		if (opcion == 1) 
+		{
+			System.out.println("Por favor ingrese un destino:");
+			String destino_1 = sc.next();
+			boolean hayVuelos = consultarVuelosPorDestino(destino_1);
+			if (!hayVuelos)
+			{
+				return;
+			}
+		}
+		else if (opcion == 2)
+		{
+			System.out.println("Por favor ingrese un destino");
+			String destino_2 = sc.next();
+			System.out.println("Por favor ingrese una fecha (dd-mm-aaaa):");
+			String fecha_2 = sc.next();
+			boolean hayVuelos = consultarVuelosPorDestinoYFecha(destino_2, fecha_2);
+			if (!hayVuelos)
+			{
+				return;
+			}
+		}
+		else
+		{
+			return;
+		}
+		
+		System.out.println("Por favor ingrese el nombre de la aerolinea con la que desea viajar");
+		String nombre_aerolinea = sc.next();
+		Aerolinea aerolinea = Aerolinea.buscarAerolineaPorNombre(nombre_aerolinea); // eN ESTE METODO SE CAMBIO EL equals
+	
+		while(aerolinea == null) {
+			System.out.println("Por favor ingrese un nombre valido");
+			nombre_aerolinea = sc.next();
+			aerolinea = Aerolinea.buscarAerolineaPorNombre(nombre_aerolinea);
+		}
+		
+		System.out.println("Por favor ingrese el ID del vuelo que desea comprar");
+		int ID = sc.nextInt();
+		Vuelo vuelo = aerolinea.buscarVueloPorID(aerolinea.getVuelos(), ID); // eN ESTE METODO SE CAMBIO EL equals
+		while(vuelo == null) {
+			System.out.println("Por favor ingrese un ID valido");
+			ID = sc.nextInt();
+			vuelo = aerolinea.buscarVueloPorID(aerolinea.getVuelos(), ID);
+		}
+		
+		double ID_tiquete = 100 + Math.random() * 999; //DEVUELVE UN NUMERO ALEATORIO DE 3 CIFRAS
+		Tiquete tiquete = new Tiquete((int)ID_tiquete, vuelo.getPrecio(), vuelo);
+		
+		//ELEGIR SILLA
+		System.out.println("Que tipo de silla desea comprar?");
+		elegirSilla(tiquete,vuelo);
+		
+		
+		//TOMAR DATOS DEL PASAJERO
+		System.out.println("DATOS DEL PASAJERO:");
+		System.out.println("Ingrese el nombre:");
+		String nombre= sc.next();
+		System.out.println("Ingrese su edad:");
+		int edad = sc.nextInt();
+		System.out.println("Ingrese el numero de su pasaporte:");
+		String pasaporte = sc.next();
+		System.out.println("Ingrese un e-mail");
+		String correo = sc.next();
+		
+		Pasajero pasajero = new Pasajero(pasaporte,nombre,tiquete,edad,correo);
+		tiquete.setPasajero(pasajero);
+		
+	
+		//IMPRIME RESUMEN DE LA COMPRA
+		tiquete.asignarPrecio();
+		System.out.println(tiquete);
 		
 	}
 	
