@@ -739,7 +739,7 @@ public class Admin {
 		silla.setEstado(false);
 		tiquete.setSilla(silla);
 	}
-	}
+	
 }	
 
 
