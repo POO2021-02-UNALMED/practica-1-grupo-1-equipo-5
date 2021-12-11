@@ -467,12 +467,51 @@ public class Admin {
 	//ESTA HECHO PARA ELIMINAR EL VUELO QUE CONTENIA EL AVION, QUE POR CONVENCION, ES SOLO UNO (CONFLICTOS CON LAS SILLAS)
 	public static void retirarAvion() 
 	{
-		
+		boolean aeronave_encontrada = false;
+		System.out.println("Ingrese el nombre de la Aeronave que se desea retirar:");
+		String nombre_aeronave = sc.next();
+		ArrayList<Aerolinea> aerolineasDisponibles = Aerolinea.getAerolineas();
+		for (int i = 0; i < aerolineasDisponibles.size(); i++)
+		{
+			Aerolinea aerolinea = aerolineasDisponibles.get(i);
+			Vuelo vuelo = aerolinea.buscarVueloPorAeronave(aerolinea.getVuelos(), nombre_aeronave);
+			if (vuelo != null)
+			{
+				vuelo.getAeronave().setDescompuesto(true);
+				aerolinea.cancelarVuelo(vuelo.getID());
+				System.out.println("Se ha retirado la aeronave descompuesta y el vuelo asociado a este.");
+				System.out.println();
+				aeronave_encontrada = true;
+				break;
+			}
+		}
+		if (!aeronave_encontrada) {
+			System.out.println("Lo sentimos, no encontramos una aeronave asociada al nombre que ingreso.");
+			System.out.println();
+		}	
 	}
 	
 	//CASE 5: AGREGAR ALOJAMIENTO
 	public static void nuevoAlojamiento()
 	{
+		System.out.println("Ingrese el nombre del alojamiento que desea agregar a nuestra lista:");
+		String nombre = sc.next();
+		System.out.println();
+		
+		System.out.println("Ingrese la locacion:");
+		String locacion = sc.next();
+		System.out.println();
+		
+		System.out.println("Ingrese el precio por dia:");
+		long precio = sc.nextLong();
+		System.out.println();
+		
+		System.out.println("Ingrese el numero de estrellas (1-5):");
+		int estrellas = sc.nextInt();
+		System.out.println();
+		
+		Alojamiento nuevoAlojamiento = new Alojamiento(nombre, locacion, precio, estrellas);
+		System.out.println("Perfecto! El alojamiento " + nuevoAlojamiento.getNombre() + " se ha agregado a nuestra lista.");
 		
 	}
 	
