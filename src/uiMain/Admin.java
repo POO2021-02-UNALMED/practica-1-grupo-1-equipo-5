@@ -281,11 +281,60 @@ public class Admin {
 	// METODOS DE LAS OPCIONES DE ADMINISTRADOR
 	
 	// CASE 1: LISTAR PASAJEROS DE UN VUELO
-	private static void listarPasajeros() 
+	private static void listarPasajeros() { 
+	ArrayList<Aerolinea> aerolineas = Aerolinea.getAerolineas();
+
+	for (int i = 0; i < aerolineas.size(); i++)
 	{
+		Aerolinea aerolinea = aerolineas.get(i);
+		System.out.println("VUELOS DISPONIBLES DE LA AEROLINEA " + aerolinea.getNombre().toUpperCase());
+		System.out.println("------------------------------------------------------------------------------------"); 
+		System.out.printf("%4s %12s %14s %12s %20s %12s", "ID", "ORIGEN", "DESTINO", "FECHA", "HORA DE SALIDA", "AERONAVE");  
+		System.out.println();  
+		System.out.println("------------------------------------------------------------------------------------");	
+		System.out.println();
+		ArrayList<Vuelo> vuelos = aerolinea.getVuelos();
+
+		for (int j = 0; j < vuelos.size(); j++) 
+		{
+			System.out.format("%4s %12s %14s %16s %12s %17s", vuelos.get(j).getID(),vuelos.get(j).getOrigen(),vuelos.get(j).getDestino(), vuelos.get(j).getFecha_de_salida(),vuelos.get(j).getHora_de_salida(), vuelos.get(j).getAeronave().getNombre());  
+			System.out.println(); 
+		}
+		System.out.println();
+	}			
 	
+	System.out.println("Ingrese el ID del vuelo: ");
+	int IDBusqueda = sc.nextInt();
+	
+	ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
+	
+	for(Aerolinea i:aerolineas) {
+		if (i.buscarVueloPorID(i.getVuelos(), IDBusqueda) == null)
+		{
+			continue;
+		}
+		tiquetes = i.buscarVueloPorID(i.getVuelos(), IDBusqueda).getTiquetes();
+		if(tiquetes != null) {
+			break;}
 	}
-		
+	System.out.println("LISTA DE PASAJEROS PARA EL VUELO "+ IDBusqueda);
+
+	if (tiquetes.size()==0)
+		{
+			 System.out.println("El vuelo aun no tiene pasajeros asociados \n");
+		}else {
+			System.out.println("-------------------------------------------");
+			System.out.printf("%4s %16s %14s", "NOMBRE", "PASAPORTE", "EMAIL"+"\n");
+			System.out.println("-------------------------------------------");
+
+			for (int i = 0; i < tiquetes.size(); i++){
+				System.out.printf("%4s %13s %13s", tiquetes.get(i).getPasajero().nombre, tiquetes.get(i).getPasajero().getPasaporte(), tiquetes.get(i).getPasajero().getEmail());
+				System.out.println();  
+			}
+			System.out.println(); 
+		}
+
+	}		
 	// CASE 2: AGREGAR NUEVO VUELO A UNA AEROLINEA
 	private static void agregarNuevoVuelo() 
 	{  
