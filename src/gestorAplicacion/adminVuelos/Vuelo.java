@@ -1,37 +1,39 @@
-package gestorAplicacion;
+package gestorAplicacion.adminVuelos;
+import java.io.Serializable;
+import gestorAplicacion.hangar.*;
 import java.util.ArrayList;
 
-public class Vuelo {
-	
-	
+public class Vuelo implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private int ID;
 	private int precio;
 	private String origen;
 	private String destino;
-	private Aeronave aeronave; 
+	private Aeronave aeronave;
 	private double distancia_en_km;
 	private String fecha_de_salida;
 	private String hora_de_salida;
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private boolean estaCompleto;
-	
+
 	public Vuelo(int iD, int precio, String origen, String destino, Aeronave aeronave, double distancia, String fecha_de_salida, String hora_de_salida) {
 		ID = iD;
 		this.precio = precio;
 		this.origen = origen;
 		this.destino = destino;
-		this.aeronave = aeronave; 
+		this.aeronave = aeronave;
 		this.distancia_en_km = distancia;
 		this.fecha_de_salida = fecha_de_salida;
 		this.setHora_de_salida(hora_de_salida);
-		
+
 		this.getAeronave().getAerolinea().agregarVuelo(this);
 	}
-	
+
 	//BUSCAR TIQUETE POR...
 	public Tiquete buscarTiquetePorID(ArrayList<Tiquete> tiquetes, int ID)
 	{
-		for(int i = 0; i < tiquetes.size(); i++) 
+		for(int i = 0; i < tiquetes.size(); i++)
 		{
 			if (tiquetes.get(i).getId() == ID)
 			{
@@ -40,9 +42,10 @@ public class Vuelo {
 		}
 		return null;
 	}
-	
+
+
 	//GETTERS Y SETTERS
-	
+
 	public int getID() {
 		return ID;
 	}
@@ -107,7 +110,7 @@ public class Vuelo {
 	public void setTiquetes(ArrayList<Tiquete> tiquetes) {
 		this.tiquetes = tiquetes;
 	}
-	
+
 	public String getHora_de_salida() {
 		return hora_de_salida;
 	}
