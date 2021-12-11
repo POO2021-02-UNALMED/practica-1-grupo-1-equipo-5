@@ -1,4 +1,4 @@
-package gestorAplicacion;
+package gestorAplicacion.hangar;
 
 public enum Ubicacion {
 	
