@@ -1,4 +1,4 @@
-package gestorAplicacion.Alojamiento;
+package gestorAplicacion.alojamiento;
 
 import java.util.ArrayList;
 

@@ -3,7 +3,7 @@ import java.io.Serializable;
 import gestorAplicacion.hangar.*;
 
 
-import gestorAplicacion.Alojamiento.Alojamiento;
+import gestorAplicacion.alojamiento.Alojamiento;
 
 public class Tiquete implements Serializable {
 	private static final long serialVersionUID = 1L;
