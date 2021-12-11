@@ -537,7 +537,11 @@ public class Admin {
 // METODOS AUXILIARES: TABLAS DE VUELOS
 	static void printEncabezado(Aerolinea aerolinea) 
 	{
-		
+		System.out.println("VUELOS DISPONIBLES DE LA AEROLINEA " + aerolinea.getNombre().toUpperCase());
+		System.out.println("--------------------------------------------------------------------------------------------------"); 
+		System.out.printf("%4s %13s %12s %14s %12s %22s %12s", "ID", "PRECIO", "ORIGEN", "DESTINO", "FECHA", "HORA DE SALIDA", "AERONAVE");  
+		System.out.println();  
+		System.out.println("--------------------------------------------------------------------------------------------------");
 	}
 
 	static void printListaAdmin(Aerolinea aerolinea) 
