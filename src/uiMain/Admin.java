@@ -640,7 +640,32 @@ public class Admin {
 	// OPCION 1: CONSULTAR VUELO POR DESTINO Y FECHA
 	static boolean consultarVuelosPorDestinoYFecha(String destino, String fecha) 
 	{
-		return false;
+		System.out.println();
+		System.out.println("Estos son los vuelos disponibles hacia " + destino + " en la fecha " + fecha + " por nuestras aerolineas:" );
+		System.out.println();
+		boolean hayVuelos = false;
+		
+		ArrayList<Aerolinea> aerolineasDisponibles = Aerolinea.getAerolineas();
+		for (int i = 0; i < aerolineasDisponibles.size(); i++)
+		{
+			Aerolinea aerolinea = aerolineasDisponibles.get(i);
+			ArrayList<Vuelo> vuelosPorDestino = aerolinea.buscarVueloPorDestino(aerolinea.vuelosDisponibles(aerolinea.getVuelos()), destino);
+			if (vuelosPorDestino.size() != 0)
+			{
+				ArrayList<Vuelo> vuelosPorFecha = aerolinea.buscarVueloPorFecha(vuelosPorDestino, fecha);
+				if(vuelosPorFecha.size() != 0 ){
+					printEncabezado(aerolinea);
+					printVuelos(vuelosPorFecha);
+					printSeparador();
+					hayVuelos = true;
+				}
+			}
+		}
+		if (hayVuelos == false) {
+			System.out.println("Lo sentimos, no tenemos vuelos disponibles para ese destino y fecha especificos");
+			System.out.println();
+		}
+		return hayVuelos;
 	}	
 	
 // METODOS AUXILIARES - TABLA ALOJAMIENTOS
