@@ -207,7 +207,31 @@ public class Admin {
 	
 	private static int modificarAlojamiento(Tiquete tiquete_solicitado) 
 	{
-		return 0;
+		if (tiquete_solicitado.getAlojamiento() == null)
+		{
+			System.out.println("Aun no tiene un alojamiento asociado a su tiquete, puede agregar uno en la opcion 3.");
+			System.out.println();
+			return 0;
+		}
+		String destino = tiquete_solicitado.getVuelo().getDestino();
+		mostrarAlojamientosPorUbicacion(destino);
+		System.out.println("Por favor ingresa el nombre del alojamiento al que desea cambiar");
+		String alojamiento = sc.next();
+		Alojamiento alojamiento_solicitado = Alojamiento.buscarAlojamientoPorNombre(alojamiento);
+		if (alojamiento_solicitado == null)
+		{
+			System.out.println("Lo sentimos, no tenemos un Alojamiento con ese nombre\n");
+			return -1;
+		}
+		else
+		{
+			System.out.println("Por favor ingrese el numero de dias que se va a quedar en el alojamiento");
+			int dias = sc.nextInt();
+			tiquete_solicitado.setAlojamiento(alojamiento_solicitado);
+			System.out.println("Perfecto! su alojamiento ha sido modificado a " + alojamiento_solicitado.getNombre()	+ " exitosamente.");
+			System.out.println();
+			return dias;			
+		}
 	}
 	
 // CASE 5 MAIN: OPCIONES DE ADMINISTRADOR
