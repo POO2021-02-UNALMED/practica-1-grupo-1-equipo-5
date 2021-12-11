@@ -514,22 +514,55 @@ public class Admin {
 		System.out.println("Perfecto! El alojamiento " + nuevoAlojamiento.getNombre() + " se ha agregado a nuestra lista.");
 		
 	}
-	
-	//CASE 6: RETIRAR ALOJAMIENTO
+	//CASE 7: RETIRAR ALOJAMIENTO
 	public static void retirarAlojamiento()
 	{
+		System.out.println("Estos son los alojamientos que tenemos asociados:\n");
+		System.out.println("************");
+		System.out.printf("%9s %19s", "NOMBRE", "UBICACION ");
+		System.out.println();
+
+		for (int i = 0; i < Alojamiento.getAlojamientos().size(); i++) 
+		{
+			Alojamiento alojamiento = Alojamiento.getAlojamientos().get(i);
+			System.out.printf("%4s %13s", alojamiento.getNombre(), alojamiento.getLocacion());
+			System.out.println();
+		}
+		System.out.println("************");
 		
+		System.out.println("Ingrese el nombre del alojamiento que desea retirar de nuestra lista:");
+		String nombre = sc.next();
+		
+		if (Alojamiento.buscarAlojamientoPorNombre(nombre) != null)
+		{
+			for (int i = 0; i < Alojamiento.getAlojamientos().size(); i++ )
+			{
+				if (Alojamiento.getAlojamientos().get(i).getNombre().equals(nombre))
+				{
+					Alojamiento.getAlojamientos().remove(i);
+					System.out.println("El alojamiento " + nombre + " se ha eliminado correctamente.");
+					System.out.println();
+				}
+			}	
+		}
+		else
+		{
+			System.out.println("Lo sentimos, no tenemos un alojamiento con este nombre.");
+			System.out.println();
+		}
 	}
 	
-	// CASE 7: SALIR DEL ADMINISTRADOR
+	// CASE 9: SALIR DEL ADMINISTRADOR
 	private static void salirDelAdministrador() {
-		System.out.println("Gracias por usar nuestras opciones de administrador! \n");	
+		System.out.println("Gracias por usar nuestras opciones de administrador! \n");
+		
 	}
 	
 //	CASE 6 MAIN: FINALIZAR SISTEMA DE ADMINISTRACION DE VUELOS
 
 	private static void salirDelSistema() {
 		System.out.println("Gracias por usar nuestro servicio!");
+		SerializaryDeserializar();
 		System.exit(0);
 	
 	}
