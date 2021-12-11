@@ -338,7 +338,94 @@ public class Admin {
 	// CASE 2: AGREGAR NUEVO VUELO A UNA AEROLINEA
 	private static void agregarNuevoVuelo() 
 	{  
+		ArrayList<Aerolinea> aerolinea = Aerolinea.getAerolineas();
+		System.out.println("AGREGAR NUEVO VUELO \n");
+		System.out.println("ESTAS SON LAS AEROLINEAS DISPONIBLES");
+		System.out.println("------------------------------------");
+
+		for(Aerolinea aerolineas:aerolinea) 
+		{
+			System.out.println(aerolineas.getNombre());	
+		}
 		
+		System.out.println("------------------------------------\n");
+		System.out.println("Ingrese el nombre de la aerolinea para agregar vuelo\n");
+		String nombreAerolinea = sc.next();
+		
+		ArrayList<String> list = new ArrayList<>();
+		for(Aerolinea i:aerolinea) 
+		{
+			list.add(i.getNombre());
+		}
+		boolean existe = list.contains(nombreAerolinea);
+		
+		while(existe==false) {
+			System.out.println("ESA AEROLINEA NO EXISTE");
+			System.out.println("Ingrese un nombre del listado anterior\n");
+			String nombreAerolinean = sc.next();
+			existe = list.contains(nombreAerolinean);
+
+		} 
+		System.out.println();
+		
+		System.out.println("Ingrese el ID del nuevo vuelo:");
+		int iD = sc.nextInt();
+		System.out.println();
+		
+		System.out.println("Ingrese el precio:");
+		int precio = sc.nextInt();
+		System.out.println();
+		
+		System.out.println("Ingrese el origen:");
+		String origen = sc.next();
+		System.out.println();
+		
+		System.out.println("Ingrese el destino:");
+		String destino = sc.next();
+		System.out.println();
+		
+		System.out.println("Iingrese la distancia (KM):");
+		double distancia = sc.nextDouble();
+		System.out.println();
+		
+		System.out.println("Ingrese fecha de salida (DD-MM-AAAA):");
+		String fechaSalida = sc.next();
+		System.out.println();
+		
+		System.out.println("Ingrese hora de salida (12:00):");
+		String horaSalida = sc.next();
+		System.out.println();
+		
+		System.out.println("Que tipo de aeronave es?");
+		System.out.println("Ingrese 1 para avion"+"\n"+"Ingrese 2 para avioneta");
+		int aeronave = sc.nextInt();
+
+		
+		if (aeronave == 1) {
+			System.out.println("Ingrese el nombre del avion:");
+			String nombreAvion = sc.next();
+			System.out.println();
+
+			Avion avion = new Avion(nombreAvion, Aerolinea.buscarAerolineaPorNombre(nombreAerolinea));
+			Vuelo vuelo = new Vuelo(iD, precio, origen, destino, avion, distancia, fechaSalida, horaSalida); //�DISTANCIA?		
+			System.out.println("***************************************");
+			System.out.println("SU VUELO SE HA REGISTRADO CORRECTAMENTE");
+			System.out.println("***************************************\n");
+			
+		}else if(aeronave == 2){
+			System.out.println("INGRESE EL NOMBRE DE LA AVIONETA:");
+			String nombreAvioneta = sc.next();
+			System.out.println();
+			Avioneta avioneta = new Avioneta(nombreAvioneta, Aerolinea.buscarAerolineaPorNombre(nombreAerolinea));
+			Vuelo vuelo = new Vuelo(iD, precio, origen, destino, avioneta, distancia, fechaSalida, horaSalida); //�DISTANCIA?		
+			System.out.println("***************************************");
+			System.out.println("SU VUELO SE HA REGISTRADO CORRECTAMENTE");
+			System.out.println("***************************************\n");
+
+		}else {
+			System.out.println("No manejamos ese tipo de aeronave");
+
+		}
 	}
 	
 	// CASE 3: CANCELAR VUELO DE UNA AEROLINEA
