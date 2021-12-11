@@ -431,7 +431,36 @@ public class Admin {
 	// CASE 3: CANCELAR VUELO DE UNA AEROLINEA
 	public static void cancelarVuelos() 
 	{		
+		ArrayList<Aerolinea> aerolinea = Aerolinea.getAerolineas();
+		System.out.println("Estos son los ID de los vuelos que tenemos:\n");
+		System.out.println("***********************************************\n");
+		System.out.printf("%4s %13s %12s %16s", "ID", "AEROLINEA", "ORIGEN", "DESTINO \n");  
 
+		for(Aerolinea aerolineas:aerolinea) {
+			for (int i = 0; i < aerolineas.getVuelos().size(); i++) 
+			{
+				Vuelo vuelos = aerolineas.getVuelos().get(i);
+				System.out.printf("%4s %13s %12s %14s",vuelos.getID(),aerolineas.getNombre(),aerolineas.getVuelos().get(i).getOrigen(),aerolineas.getVuelos().get(i).getDestino());
+				System.out.println();	
+			}
+
+		}
+		System.out.println();
+		System.out.println("***********************************************\n");
+		System.out.println("Ingrese el ID del vuelo a eliminar:");
+		int id = sc.nextInt();
+		
+		for(Aerolinea aerolineas:aerolinea) {
+			for (int i = 0; i < aerolineas.getVuelos().size(); i++) {
+				if (aerolineas.buscarVueloPorID(aerolineas.getVuelos(), id) != null)
+				{
+					aerolineas.cancelarVuelo(id);
+					System.out.println("El vuelo se ha eliminado correctamente.");
+					return;
+				}
+			}
+		}	
+		System.out.println("No tenemos un vuelo identificado con ese ID \n");
 	}
 	
 	//CASE 4: RETIRAR AVION
