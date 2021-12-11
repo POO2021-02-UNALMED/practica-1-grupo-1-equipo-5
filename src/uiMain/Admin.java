@@ -86,6 +86,14 @@ public class Admin {
 // CASE 1 MAIN: VER TODOS LOS VUELOS DISPONIBLES POR AEROLINEAS	
 	static void mostrarVuelosPorAerolineas()
 	{
+		ArrayList<Aerolinea> aerolineasDisponibles = Aerolinea.getAerolineas();
+		for (int i = 0; i < aerolineasDisponibles.size(); i++)
+		{
+			Aerolinea aerolinea = aerolineasDisponibles.get(i);
+			printEncabezado(aerolinea);
+			printVuelos(aerolinea.vuelosDisponibles(aerolinea.getVuelos())); //SE MUESTRAN LOS VUELOS QUE NO EST�N COMPLETOS
+			printSeparador();
+			}
 	
 	}
 	
