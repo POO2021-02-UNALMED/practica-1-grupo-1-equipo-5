@@ -579,22 +579,33 @@ public class Admin {
 
 	static void printListaAdmin(Aerolinea aerolinea) 
 	{
-	
+		System.out.println("VUELOS DISPONIBLES DE LA AEROLINEA " + aerolinea.getNombre().toUpperCase());
+		System.out.println("------------------------------------------------------------------------------------------------"); 
+		System.out.printf("%4s %13s %12s %14s %12s %22s %12s", "ID", "ORIGEN", "DESTINO", "FECHA", "HORA DE SALIDA", "AVION");  
+		System.out.println();  
+		System.out.println("--------------------------------------------------------------------------------------------------");
 	}
 	
 	static void printVuelos(ArrayList<Vuelo> vuelos) 
 	{
-		
+		for (int j = 0; j < vuelos.size(); j++) {
+			System.out.format("%5s %12s %13s %13s %15s %11s %21s", vuelos.get(j).getID(), vuelos.get(j).getPrecio(), vuelos.get(j).getOrigen(),vuelos.get(j).getDestino(), vuelos.get(j).getFecha_de_salida(), vuelos.get(j).getHora_de_salida(), vuelos.get(j).getAeronave());  
+			System.out.println(); 
+			}
 	}
 	
 	static void printiIdVuelos(ArrayList<Vuelo> vuelos) 
 	{
-		
+		for (int j = 0; j < vuelos.size(); j++) {
+			System.out.format("%5s", vuelos.get(j).getID());  
+			System.out.println(); 
+			}
 	}
 	
 	static void printSeparador() 
 	{
-		
+		System.out.println("--------------------------------------------------------------------------------------------------");  
+		System.out.println();	
 	}
 	
 // METODOS AUXILIARES - TABLA DE VUELOS POR...
