@@ -1,7 +1,7 @@
 package gestorAplicacion.hangar;
 public enum Clase {
 
-	ECONOMICA(10000),EJECUTIVA(70000);
+	ECONOMICA(10000),EJECUTIVA(20000);
 
 	private int precio;
 
