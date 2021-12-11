@@ -1,15 +1,15 @@
-package gestorAplicacion;
+package gestorAplicacion.hangar;
+import gestorAplicacion.adminVuelos.*;
 public class Silla {
 
 	private Clase clase;
-	private String numero_de_silla;
+	private int numero_de_silla;
 	private Pasajero pasajero;
-	private boolean estaDisponible;
+	private boolean estaDisponible = true;
 	private Ubicacion ubicacion;
 	
 	
-	
-	public Silla(Clase clase, String numero_de_silla,Ubicacion ubicacion) {
+	public Silla(Clase clase, int numero_de_silla,Ubicacion ubicacion) {
 		this.clase = clase;
 		this.numero_de_silla = numero_de_silla;
 		this.ubicacion = ubicacion;
@@ -23,10 +23,10 @@ public class Silla {
 	public void setClase(Clase clase) {
 		this.clase = clase;
 	}
-	public String getNumero_de_silla() {
+	public int getNumero_de_silla() {
 		return numero_de_silla;
 	}
-	public void setNumero_de_silla(String numero_de_silla) {
+	public void setNumero_de_silla(int numero_de_silla) {
 		this.numero_de_silla = numero_de_silla;
 	}
 	public Pasajero getPasajero() {
