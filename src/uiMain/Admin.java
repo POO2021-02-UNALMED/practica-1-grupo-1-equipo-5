@@ -700,7 +700,45 @@ public class Admin {
 //METODOS AUXILIARES - ELEGIR SILLA
 	static void elegirSilla(Tiquete tiquete,Vuelo vuelo) 
 	{
-
+		System.out.println("1: Ejecutiva");
+		System.out.println("2: Economica");
+		
+		int nombre_clase = sc.nextInt();
+		String clase;
+		while(nombre_clase != 1 & nombre_clase!=2) {
+			System.out.println("Porfavor ingrese una opcion valida");
+			nombre_clase = sc.nextInt();
+		}
+		
+		System.out.println("Cual de las siguientes ubicaciones prefiere?");
+		System.out.println("1: Pasillo");
+		System.out.println("2: Ventana");
+		
+		if(nombre_clase == 2)  {
+			clase = "ECONOMICA";
+			System.out.println("3: Central");
+		}
+		else {clase = "EJECUTIVA";}
+		
+		int num_ubicacion = sc.nextInt();
+		
+		while(num_ubicacion!=1 & num_ubicacion!=2 & num_ubicacion!=3) {
+			System.out.println("Porfavor ingrese una opcion valida");
+			num_ubicacion = sc.nextInt();
+		}
+		Ubicacion ubicacion;
+		if(num_ubicacion == 1) {
+			ubicacion = Ubicacion.PASILLO;
+		}
+		else if (num_ubicacion == 2) {
+			ubicacion = Ubicacion.VENTANA;
+		}
+		else {ubicacion = Ubicacion.CENTRAL;
+		}
+		Silla silla = vuelo.getAeronave().buscarSillaPorUbicacionyTipo(ubicacion,clase );
+		silla.setEstado(false);
+		tiquete.setSilla(silla);
+	}
 	}
 }	
 
