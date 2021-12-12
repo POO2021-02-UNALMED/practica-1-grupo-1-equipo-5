@@ -18,32 +18,32 @@ public class Admin {
 	public static void main(String[] args) {
 	//  CASOS DE PRUEBA !!!		
 		 
-				Aerolinea capiFly = new Aerolinea("Capifly");
-				Avion avion1 = new Avion("boeing787", capiFly);
-				Vuelo vuelo1 = new Vuelo(111, 150000, "Rionegro", "Bogota", avion1, 214.88, "12-10-2011", "14:00");
-				Vuelo vuelo2 = new Vuelo(112, 190000, "Rionegro", "Bogota", avion1, 214.88, "13-10-2011", "16:00");
+			Aerolinea capiFly = new Aerolinea("Capifly");
+			Avion avion1 = new Avion("boeing787", capiFly);
+			Vuelo vuelo1 = new Vuelo(111, 150000, "Rionegro", "Bogota", avion1, 214.88, "12-10-2011", "14:00");
+			Vuelo vuelo2 = new Vuelo(112, 190000, "Rionegro", "Bogota", avion1, 214.88, "13-10-2011", "16:00");
+		
+			Aerolinea capiFly2 = new Aerolinea("Capifly2");
+			Avioneta avioneta1 = new Avioneta("Avioneta787", capiFly2);
+			Vuelo vuelo3 = new Vuelo(113, 200000, "Rionegro", "Cartagena", avioneta1, 473.22, "15-10-2011", "15:00");
+			Vuelo vuelo4 = new Vuelo(114, 1600000, "Bogota", "Espana",  avioneta1, 8033.74, "31-10-2011", "17:00");
+			Vuelo vuelo5 = new Vuelo(115, 230000, "Rionegro", "Bogota", avioneta1, 214.88, "17-10-2011", "16:00");
+
+			Alojamiento alojamiento1 = new Alojamiento("alojamiento1", "Bogota", 55000, 3);
+			Alojamiento alojamiento2 = new Alojamiento("alojamiento2", "Bogota", 95000, 4);
+			Alojamiento alojamiento3 = new Alojamiento("alojamiento3", "Espana", 105000, 4);
+
+			Tiquete tiquete1 = new Tiquete(1, 12000, vuelo1);
+			Pasajero pasajero1 = new Pasajero( "AS1234", "Capibara", tiquete1, 20, "@");
 			
-				Aerolinea capiFly2 = new Aerolinea("Capifly2");
-				Avioneta avioneta1 = new Avioneta("Avioneta787", capiFly2);
-				Vuelo vuelo3 = new Vuelo(113, 200000, "Rionegro", "Cartagena", avioneta1, 473.22, "15-10-2011", "15:00");
-				Vuelo vuelo4 = new Vuelo(114, 1600000, "Bogota", "Espana",  avioneta1, 8033.74, "31-10-2011", "17:00");
-				Vuelo vuelo5 = new Vuelo(115, 230000, "Rionegro", "Bogota", avioneta1, 214.88, "17-10-2011", "16:00");
 
-				Alojamiento alojamiento1 = new Alojamiento("alojamiento1", "Bogota", 55000, 3);
-				Alojamiento alojamiento2 = new Alojamiento("alojamiento2", "Bogota", 95000, 4);
-				Alojamiento alojamiento3 = new Alojamiento("alojamiento3", "Espana", 105000, 4);
+			Tiquete tiquete2 = new Tiquete(2, 13000, vuelo1);
+			Pasajero pasajero2 = new Pasajero( "AS1111", "Milonesa", tiquete2, 5, "@");
+			
+			Tiquete tiquete3 = new Tiquete(3, 13000, vuelo3);
+			Pasajero pasajero3 = new Pasajero( "AS1256", "Jeronimo", tiquete3, 15, "@");
 
-				Tiquete tiquete1 = new Tiquete(1, 12000, vuelo1);
-				Pasajero pasajero1 = new Pasajero( "AS1234", "Capibara", tiquete1, 20, "@");
-				
-
-				Tiquete tiquete2 = new Tiquete(2, 13000, vuelo1);
-				Pasajero pasajero2 = new Pasajero( "AS1111", "Milonesa", tiquete2, 5, "@");
-				
-				Tiquete tiquete3 = new Tiquete(3, 13000, vuelo3);
-				Pasajero pasajero3 = new Pasajero( "AS1256", "Jeronimo", tiquete3, 15, "@");
-
-				tiquete2.setAlojamiento(alojamiento1);
+			tiquete2.setAlojamiento(alojamiento1);
 
 		int opcion;
 		do {
@@ -189,7 +189,44 @@ public class Admin {
 // CASE 3 MAIN:	AGREGAR ALOJAMIENTO EN EL DESTINO DEL VUELO COMPRADO
 	static void agregarAlojamiento() 
 	{
-		
+		System.out.println("Deseas agregar un alojamiento a tu compra?");
+		System.out.println("Por favor ingresa el ID del tiquete que se genero al comprar su vuelo:");
+		int tiqueteID = sc.nextInt();
+		Tiquete tiquete_solicitado = Aerolinea.BuscarTiquete(tiqueteID);
+		if (tiquete_solicitado == null)
+		{
+			System.out.println("Lo sentimos, no tenemos un tiquete identificado con ese ID");
+			System.out.println();
+		}
+		else 
+		{
+			String destino = tiquete_solicitado.getVuelo().getDestino();
+			boolean hayAlojamientos = mostrarAlojamientosPorUbicacion(destino);
+			if (!hayAlojamientos)
+			{
+				return;
+			}
+			System.out.println("Por favor ingresa el nombre del alojamiento que desea anadir a su compra:");
+			String alojamiento = sc.next();
+			Alojamiento alojamiento_solicitado = Alojamiento.buscarAlojamientoPorNombre(alojamiento);
+			if (alojamiento_solicitado == null)
+			{
+				System.out.println("Lo sentimos, no tenemos un Alojamiento con ese nombre");
+				System.out.println();
+			}
+			else
+			{
+				System.out.println("Cuantos dias desea quedarse en el alojamiento?");
+				int num_dias = sc.nextInt();
+				tiquete_solicitado.setAlojamiento(alojamiento_solicitado);
+				tiquete_solicitado.asignarPrecio(num_dias);
+				
+				System.out.println("Perfecto! el alojamiento " + alojamiento_solicitado.getNombre()
+				+ " se ha agregado correctamente a su tiquete de compra.");
+				System.out.println();
+				System.out.println(tiquete_solicitado);
+			}					
+		}
 	}
 	
 	
@@ -562,7 +599,6 @@ public class Admin {
 
 	private static void salirDelSistema() {
 		System.out.println("Gracias por usar nuestro servicio!");
-		SerializaryDeserializar();
 		System.exit(0);
 	
 	}
