@@ -233,13 +233,46 @@ public class Admin {
 // CASE 4 MAIN:	MODIFICAR TIQUETE COMPRADO
 	static void modificarTiquete()
 	{
+		System.out.println("Ingrese el ID del tiquete que desea modificar.");
+		int ID = sc.nextInt();
+		Tiquete tiquete = Aerolinea.BuscarTiquete(ID);
+		if(tiquete == null) {
+			System.out.println("El ID ingresado no se encuentra\n");
+		}
+		else {
+		System.out.println("Que aspectos de su tiquete desea modificar?");
+		System.out.println("1: Modificar alojamiento");
+		System.out.println("2: Modificar Silla");
 		
+		int opcion = sc.nextInt(); 
+		
+		switch(opcion) {
+		
+		case 1:
+			int dias = modificarAlojamiento(tiquete);
+			if (dias > 0) {
+				tiquete.asignarPrecio(dias);
+				System.out.println(tiquete);
+			}
+			break;
+		case 2:
+			modificarSilla(tiquete);
+			tiquete.asignarPrecio();
+			System.out.println(tiquete);
+			break;
+		}
+		}
 	}
 
 	//METODOS DE MODIFICAR TIQUETE
 	private static void modificarSilla (Tiquete tiquete) 
 	{
-		
+		tiquete.getSilla().setEstado(true);
+		System.out.println("A que tipo de silla desea cambiar?");
+		elegirSilla(tiquete,tiquete.getVuelo());
+		System.out.println("*************************************");
+		System.out.println("SU SILLA HA SIDO MODIFICADA CON EXITO");
+		System.out.println("*************************************\n");
 	}
 	
 	private static int modificarAlojamiento(Tiquete tiquete_solicitado) 
@@ -775,10 +808,5 @@ public class Admin {
 		silla.setEstado(false);
 		tiquete.setSilla(silla);
 	}
-	
+}
 }	
-
-
-
-
-
