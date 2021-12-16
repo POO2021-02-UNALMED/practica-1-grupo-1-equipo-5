@@ -14,6 +14,8 @@ import java.lang.Math;
 public class Admin {
 
 	static Scanner sc = new Scanner(System.in);
+	static GeneradorDeTablas generadorDeTablas = new TablasConsola();
+	//EL APUNTADOR DEBE SER DEL TIPO DE LA INTERFAZ
 
 	public static void main(String[] args) {
 		// CASOS DE PRUEBA !!!
