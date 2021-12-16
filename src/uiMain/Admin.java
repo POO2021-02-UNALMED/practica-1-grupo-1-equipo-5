@@ -613,5 +613,56 @@ public class Admin {
 		}
 		return hayVuelos;
 	}
+	//METODOS AUXILIARES - ELEGIR SILLA
+	
+		//ESTE METODO RECIBE UN TIQUETE Y UN VUELO, ESTE ULTIMO LO UTILIZARA PARA ACCEDER A LAS SILLAS DEL AVION QUE REALIZARA EL VUELO.
+		//LUEGO SOLICITA QUE TIPO DE SILLA Y UBICACION PREFIERE, VALORES LOS CUALES USARA PARA BUSCAR  DENTRO DEL AVION SI SE ENCUENTRA UNA SILLA DISPONIBLE
+		//CON ESAS CARACTERISTICAS	Y ASIGANARLA AL ATRIBUTO SILLA DE TIQUETE.
+		static Silla elegirSilla(Vuelo vuelo) 
+		{
+			System.out.println("1: Ejecutiva");
+			System.out.println("2: Economica");
+			
+			int nombre_clase = sc.nextInt();
+			int num_ubicacion;
+			String clase;
+			while(nombre_clase != 1 & nombre_clase!=2) {
+				System.out.println("Porfavor ingrese una opcion valida");
+				nombre_clase = sc.nextInt();
+			}
+			
+			System.out.println("Cual de las siguientes ubicaciones prefiere?");
+			System.out.println("1: Pasillo");
+			System.out.println("2: Ventana");
+			
+			if(nombre_clase == 2)  {
+				clase = "ECONOMICA";
+				System.out.println("3: Central");
+				num_ubicacion  = sc.nextInt();
+				while(num_ubicacion!=1 & num_ubicacion!=2 & num_ubicacion!=3) {
+					System.out.println("Porfavor ingrese una opcion valida");
+					num_ubicacion = sc.nextInt();
+				}
+			}
+			else {clase = "EJECUTIVA";
+				num_ubicacion  = sc.nextInt();
+				while(num_ubicacion!=1 & num_ubicacion!=2) {
+					System.out.println("Porfavor ingrese una opcion valida");
+					num_ubicacion = sc.nextInt();
+				}
+			}
+
+			Ubicacion ubicacion;
+			if(num_ubicacion == 1) {
+				ubicacion = Ubicacion.PASILLO;
+			}
+			else if (num_ubicacion == 2) {
+				ubicacion = Ubicacion.VENTANA;
+			}
+			else {ubicacion = Ubicacion.CENTRAL;
+			}
+			
+			return vuelo.getAeronave().buscarSillaPorUbicacionyTipo(ubicacion,clase );
+		}
 
 }
