@@ -482,5 +482,136 @@ public class Admin {
 			System.out.println();
 		}
 	}
-//Mirar si sigue el error, pepino 
+	//CASE 5: AGREGAR ALOJAMIENTO
+	// PERMITE AGREGAR UN ALOJAMIENTO A LA LISTA DE ALOJAMIENTOS DISPONIBLES, ESTO DESDE SU CONSTRUCTOR
+	public static void nuevoAlojamiento()
+	{
+		System.out.println("Ingrese el nombre del alojamiento que desea agregar a nuestra lista:");
+		String nombre = sc.next();
+		System.out.println();
+		
+		System.out.println("Ingrese la locacion:");
+		String locacion = sc.next();
+		System.out.println();
+		
+		System.out.println("Ingrese el precio por dia:");
+		long precio = sc.nextLong();
+		System.out.println();
+		
+		System.out.println("Ingrese el numero de estrellas (1-5):");
+		int estrellas = sc.nextInt();
+		System.out.println();
+		
+		Alojamiento nuevoAlojamiento = new Alojamiento(nombre, locacion, precio, estrellas);
+		System.out.println("Perfecto! El alojamiento " + nuevoAlojamiento.getNombre() + " se ha agregado a nuestra lista.");
+		
+	}
+	//CASE 7: RETIRAR ALOJAMIENTO
+	// MUESTRA LOS ALOJAMIENTOS QUE SE TIENEN DISPONIBLES, PARA POSTERIORMENTE PREGUNTAR POR EL NOMBRE DEL ALOJAMIENTO
+	// QUE SE DESEA RETIRAR DE LA LISTA Y ELIMINARLO DE LA LISTA DE ALOJAMIENTOS.
+	public static void retirarAlojamiento()
+	{
+		System.out.println("Estos son los alojamientos que tenemos asociados:");
+		generadorDeTablas.mostrarTablaDeAlojamientos(Alojamiento.getAlojamientos());
+	
+		System.out.println("Ingrese el nombre del alojamiento que desea retirar de nuestra lista:");
+		String nombre = sc.next();
+		
+		if (Alojamiento.buscarAlojamientoPorNombre(nombre) != null)
+		{
+			for (int i = 0; i < Alojamiento.getAlojamientos().size(); i++ )
+			{
+				if (Alojamiento.getAlojamientos().get(i).getNombre().equals(nombre))
+				{
+					Alojamiento.getAlojamientos().remove(i);
+					System.out.println("El alojamiento " + nombre + " se ha eliminado correctamente.");
+					System.out.println();
+				}
+			}	
+		}
+		else
+		{
+			System.out.println("Lo sentimos, no tenemos un alojamiento con este nombre.");
+			System.out.println();
+		}
+	}
+	
+	// CASE 9: SALIR DEL ADMINISTRADOR
+	private static void salirDelAdministrador() {
+		System.out.println("Gracias por usar nuestras opciones de administrador! \n");
+	}
+	
+//	CASE 6 MAIN: FINALIZAR SISTEMA DE ADMINISTRACION DE VUELOS
+	private static void salirDelSistema() {
+		System.out.println("Gracias por usar nuestro servicio!");
+		Serializador.serializar();
+		System.exit(0);
+	}
+	
+// METODOS AUXILIARES - TABLA DE VUELOS POR...
+	
+	// OPCION 1: CONSULTAR VUELO POR DESTINO
+	
+	// ESTE METODO RECIBE COMO PARAMETRO UN DESTINO (STRING) Y RECORRE CADA AEROLINEA EJECUTANDO EL METODO DE AEROLINEA BUSCARVUELOPORDESTINO()
+	// PARA ALMACENAR ESTOS VUELOS EN UNA LISTA Y MOSTRARLOS POR PANTALLA. SI ENCONTRO AL MENOS UN VUELO EN ALGUNA AEROLINEA
+	// QUE TUVIERA ASOCIADO ESTE DESTINO RETORNA LA VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
+	static boolean consultarVuelosPorDestino(String destino) 
+	{
+		System.out.println("Estos son los vuelos disponibles hacia " + destino + " por nuestras aerolineas:" );
+		System.out.println();
+		boolean hayVuelos = false;
+		
+		ArrayList<Aerolinea> aerolineasDisponibles = Aerolinea.getAerolineas();
+		for (int i = 0; i < aerolineasDisponibles.size(); i++)
+		{
+			Aerolinea aerolinea = aerolineasDisponibles.get(i);
+			ArrayList<Vuelo> vuelosPorDestino = aerolinea.buscarVueloPorDestino(aerolinea.vuelosDisponibles(aerolinea.getVuelos()), destino);
+			if (vuelosPorDestino.size() != 0)
+			{
+				generadorDeTablas.mostrarTablaDeVuelos(aerolinea, vuelosPorDestino);
+				hayVuelos = true;	
+			}
+		}
+		if (hayVuelos == false) 
+		{
+		System.out.println("Lo sentimos, no tenemos vuelos disponibles para ese destino");
+		System.out.println();
+		}
+		return hayVuelos;
+	}
+	
+	// OPCION 2: CONSULTAR VUELO POR DESTINO Y FECHA
+	
+	// ESTE METODO RECIBE COMO PARAMETRO UN DESTINO (STRING) Y UNA FECHA (STRING) Y RECORRE CADA AEROLINEA EJECUTANDO EL METODO DE AEROLINEA 
+	// BUSCARVUELOPORDESTINO() SI LOS ENCUENTRA, EJECUTA EL METODO DE AEROLINEA BUSCARVUELOPORFECHA() PARA ALMACENAR ESTOS VUELOS EN UNA LISTA 
+	// Y MOSTRARLOS POR PANTALLA. SI ENCONTRO AL MENOS UN VUELO EN ALGUNA AEROLINEA QUE TUVIERA ASOCIADO ESE DESTINO Y ESA FECHA, 
+	// RETORNA LA VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
+	static boolean consultarVuelosPorDestinoYFecha(String destino, String fecha) 
+	{
+		System.out.println();
+		System.out.println("Estos son los vuelos disponibles hacia " + destino + " en la fecha " + fecha + " por nuestras aerolineas:" );
+		System.out.println();
+		boolean hayVuelos = false;
+		
+		ArrayList<Aerolinea> aerolineasDisponibles = Aerolinea.getAerolineas();
+		for (int i = 0; i < aerolineasDisponibles.size(); i++)
+		{
+			Aerolinea aerolinea = aerolineasDisponibles.get(i);
+			ArrayList<Vuelo> vuelosPorDestino = aerolinea.buscarVueloPorDestino(aerolinea.vuelosDisponibles(aerolinea.getVuelos()), destino);
+			if (vuelosPorDestino.size() != 0)
+			{
+				ArrayList<Vuelo> vuelosPorFecha = aerolinea.buscarVueloPorFecha(vuelosPorDestino, fecha);
+				if(vuelosPorFecha.size() != 0 ){
+					generadorDeTablas.mostrarTablaDeVuelos(aerolinea, vuelosPorFecha);
+					hayVuelos = true;
+				}
+			}
+		}
+		if (hayVuelos == false) {
+			System.out.println("Lo sentimos, no tenemos vuelos disponibles para ese destino y fecha especificos");
+			System.out.println();
+		}
+		return hayVuelos;
+	}
+
 }
