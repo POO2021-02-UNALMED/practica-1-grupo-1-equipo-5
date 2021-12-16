@@ -35,8 +35,9 @@ public class Tiquete implements Serializable {
 
 	// METODOS
 
-	/*Este metodo no tiene parametros de entra o de salida porque el valor resultante
-	  es guardado en el atributo precio de cada instancia*/
+	/*ESTE METODO NO TIENE PARAMETROS DE ENTRADA PERO RETORNA UN BOOLEANO, YA QUE 
+	  SU OBJETIVO ES ASIGNARLE EL PRECIO A CADA INSTANCIA DE TIQUETE OBTENIENDO LOS PRECIOS
+	  DEL VUELO Y SILLA SELECCIONADOS CON UN DESCUENTO POR CONFORME AL ATRIBUTO EDAD DEL PASAJERO*/
 	public boolean asignarPrecio() {
 		boolean hayDescuento = false;
 		int precio_total=vuelo.getPrecio() + this.getSilla().getClase().getPrecio();
@@ -52,8 +53,9 @@ public class Tiquete implements Serializable {
 		return hayDescuento;
 	}
 
-	/*Este metodo sobrecarga asignarPrecio y tiene parametros de entra numero de dias para el alojamiento porque el valor resultante
-	  es guardado en el atributo precio de cada instancia*/
+	/*ESTE METODO SOBRECARGA EL METODO ASGINAR PRECIO RECIBIENDO COMO PARAMETRO DE ENTRADA
+	 UN ENTERO Y SU RETORNO ES VACIO. SU FUNCION SUMARLE A CADA INSTANCIA DE TIQUETE EL PRECIO DEL ALOJAMIENTO
+	 SELECCIONADO DE ACUERDO AL NUMERO DE DIAS INGRESADO JUNTO A LOS PRECIOS DEL VUELO Y SILLA*/
 	public void asignarPrecio(int num_dias) {
 		int precio_total=vuelo.getPrecio()+ alojamiento.calcularPrecio(num_dias) + this.getSilla().getClase().getPrecio();
 		if (pasajero.getEdad()<5) {
@@ -64,11 +66,16 @@ public class Tiquete implements Serializable {
 			this.precio = precio_total;
 		}
 	}
-
+	
+	/* EL METODO AGREGAR LA INSTANCIA DE TIQUETE CREADA AL ARRAY
+	   DE TIQUETES QUE TIENE ASOCIADO AL VUELO SELCCIONADO, POR TAL RAZON NO RECIBE PARAMETRO Y SU
+	   RETORNO ES VACIO */
 	public void confimarCompra() {
 		this.vuelo.getTiquetes().add(this);
 	}
 
+	/*VAMOS A UTILIZAR EL METEDO TOSTRING PARA IMPRIR EL RESUMEN DEL TIQUETE ADQUIRIDO
+	  DEPENDIENDO SI EL TIQUETE TIENE O NO ASOCIADO UN ALOJOMIENTO */
 	public String toString()
 	{
 		if (this.alojamiento==null) {
