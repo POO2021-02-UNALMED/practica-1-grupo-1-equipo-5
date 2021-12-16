@@ -193,4 +193,84 @@ public class Admin {
 		}
 	}
 
+	// CASE 4 MAIN: MODIFICAR TIQUETE COMPRADO
+	// NOS PERMITE MODIFICAR EL ALOJAMIENTO Y LA SILLA DE UN TIQUETE
+	static void modificarTiquete() {
+		System.out.println("Ingrese el ID del tiquete que desea modificar.");
+		int ID = sc.nextInt();
+		Tiquete tiquete = Aerolinea.BuscarTiquete(ID);
+		if (tiquete == null) {
+			System.out.println("El ID ingresado no se encuentra\n");
+		} else {
+			System.out.println("Que aspectos de su tiquete desea modificar?");
+			System.out.println("1: Modificar alojamiento");
+			System.out.println("2: Modificar Silla");
+
+			int opcion = sc.nextInt();
+
+			switch (opcion) {
+
+				case 1:
+					int dias = modificarAlojamiento(tiquete);
+					if (dias > 0) {
+						tiquete.asignarPrecio(dias);
+						System.out.println(tiquete);
+					}
+					break;
+				case 2:
+					modificarSilla(tiquete);
+			}
+		}
+	}
+
+	// METODOS DE MODIFICAR TIQUETE
+
+	// ESTE METODO RECIBE UN TIQUETE AL CUAL SE LE VA A MODIFICAR EL ATRIBUTO SILLA:
+	// LO HACE CAMBIANDO EL ATRIBUTO estaDisponible DE SU SILLA ACTUAL A TRUE Y
+	// ASIGNANDO OTRA SILLA HACIENDO USO DEL METODO ELEGIR SILLA
+	private static void modificarSilla(Tiquete tiquete) {
+
+		System.out.println("A que tipo de silla desea cambiar?");
+		Silla silla = elegirSilla(tiquete.getVuelo());
+		if (silla == null) {
+			System.out.println("Lo sentimos no se encuentran sillas disponibles con esas caracteristicas\n");
+			return;
+		}
+		silla.setEstado(false);
+		tiquete.getSilla().setEstado(true);
+		tiquete.setSilla(silla);
+
+		System.out.println("*************************************");
+		System.out.println("SU SILLA HA SIDO MODIFICADA CON EXITO");
+		System.out.println("*************************************\n");
+		tiquete.asignarPrecio();
+		System.out.println(tiquete);
+
+	}
+
+	private static int modificarAlojamiento(Tiquete tiquete_solicitado) {
+		if (tiquete_solicitado.getAlojamiento() == null) {
+			System.out.println("Aun no tiene un alojamiento asociado a su tiquete, puede agregar uno en la opcion 3.");
+			System.out.println();
+			return 0;
+		}
+		String destino = tiquete_solicitado.getVuelo().getDestino();
+		mostrarAlojamientosPorUbicacion(destino);
+		System.out.println("Por favor ingresa el nombre del alojamiento al que desea cambiar");
+		String alojamiento = sc.next();
+		Alojamiento alojamiento_solicitado = Alojamiento.buscarAlojamientoPorNombre(alojamiento);
+		if (alojamiento_solicitado == null) {
+			System.out.println("Lo sentimos, no tenemos un Alojamiento con ese nombre\n");
+			return -1;
+		} else {
+			System.out.println("Por favor ingrese el numero de dias que se va a quedar en el alojamiento");
+			int dias = sc.nextInt();
+			tiquete_solicitado.setAlojamiento(alojamiento_solicitado);
+			System.out.println("Perfecto! su alojamiento ha sido modificado a " + alojamiento_solicitado.getNombre()
+					+ " exitosamente.");
+			System.out.println();
+			return dias;
+		}
+	}
+
 }
