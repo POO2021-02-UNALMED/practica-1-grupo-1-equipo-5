@@ -5,7 +5,11 @@ import gestorAplicacion.hangar.*;
 
 import gestorAplicacion.alojamiento.Alojamiento;
 
+/*LA CLASE TIQUETE COTIENE LA INFORMACION ASOCIADA AL VUELO, SILLA Y ALOJAMIENTOS SELECCIONADOS
+TAMBIRN CONTIENE UN ID PARA TIQUETE Y EL VALOR DEL PRECIO.
+SUS METODOS NOS PERMITEN CONSOLIDAR EL RESUMEN DEL TIQUETE QUE TIENE UN PASAJARO ASOCIADO A UN VUELO*/
 public class Tiquete implements Serializable {
+	//ATRIBUTOS
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private int precio;
