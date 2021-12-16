@@ -615,6 +615,26 @@ public class Admin {
 		}
 		return hayVuelos;
 	}
+	
+// METODOS AUXILIARES - TABLA ALOJAMIENTOS
+
+	// ESTE METODO RECIBE COMO PARAMETRO UNA UBICACION (STRING) Y SE ENCARGA DE BUSCAR LOS ALOJAMIENTOS QUE TIENEN ASOCIADA ESTA UBICACION
+	// PARA POSTERIORMENTE MOSTRARLOS EN UNA TABLA POR PANTALLA. SI ENCONTRO AL MENOS UN ALOJAMIENTO QUE TUVIERA ESA UBICACION, RETORNA LA 
+	// VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
+	static boolean mostrarAlojamientosPorUbicacion(String ubicacion) 
+	{
+		System.out.println("Estos son los alojamientos disponibles en " + ubicacion + ":" );
+		boolean hayAlojamientos = false;
+		ArrayList<Alojamiento> alojamientosDisponibles = Alojamiento.buscarAlojamientoPorUbicacion(ubicacion);
+		if (alojamientosDisponibles.size() != 0) {
+			hayAlojamientos = true;
+			generadorDeTablas.mostrarTablaDeAlojamientos(alojamientosDisponibles);		
+		}else {
+			System.out.println("Lo sentimos, no tenemos alojamientos disponibles para ese destino");
+			System.out.println();
+		}
+		return hayAlojamientos;
+	}
 	//METODOS AUXILIARES - ELEGIR SILLA
 	
 		//ESTE METODO RECIBE UN TIQUETE Y UN VUELO, ESTE ULTIMO LO UTILIZARA PARA ACCEDER A LAS SILLAS DEL AVION QUE REALIZARA EL VUELO.
