@@ -1,3 +1,5 @@
+//CLASE PARA LA IMPRESION POR PANTALLA DE TABLAS DE DATOS
+//AUTORES: JERONIMO SALAZAR, ALVARO GUERRERO, ESTEBAN ACOSTA, KAREN RIVERA
 package uiMain;
 
 import java.util.ArrayList;
@@ -7,8 +9,12 @@ import gestorAplicacion.adminVuelos.Aerolinea;
 import gestorAplicacion.adminVuelos.Tiquete;
 import gestorAplicacion.adminVuelos.Vuelo;
 
+//IMPLEMENTA LA INTERFACE GENERADORDETABLAS, PARA IMPRIMIR POR PANTALLA LOS DATOS PASADOS A LOS METODOS EN DETERMINADO FORMATO
+//HACIENDO USO DE SYSTEM.OUT.PRINTF()
 public class TablasConsola implements GeneradorDeTablas {
 
+	//RECIBE UNA LISTA DE AEROLINEAS E IMPRIME POR PANTALLA LOS VUELOS DISPONIBLES (QUE NO ESTÉN COMPLETOS) DE CADA AEROLINEA HACIENDO 
+	//USO DE LOS METODOS PRINTENCABEZADOAEROLINEA(), PRINTVUELOS() Y PRINTSEPARADOR().
 	@Override
 	public void mostrarTablaDeVuelosDisponiblesPorAerolineas(ArrayList<Aerolinea> aerolineas) 
 	{
@@ -21,6 +27,8 @@ public class TablasConsola implements GeneradorDeTablas {
 		}	
 	}
 	
+	//RECIBE UNA LISTA DE AEROLINEAS E IMPRIME POR PANTALLA TODOS LOS VUELOS DE CADA AEROLINEA HACIENDO 
+	//USO DE LOS METODOS PRINTENCABEZADOAEROLINEA(), PRINTVUELOS() Y PRINTSEPARADOR().
 	@Override
 	public void mostrarTablaDeVuelosPorAerolineas(ArrayList<Aerolinea> aerolineas) 
 	{
@@ -33,6 +41,8 @@ public class TablasConsola implements GeneradorDeTablas {
 		}	
 	}
 	
+	//RECIBE UNA AEROLINEA Y SUS VUELOS, E IMPRIME POR PANTALLA ESTOS VUELOS HACIENDO 
+	//USO DE LOS METODOS PRINTENCABEZADOAEROLINEA(), PRINTVUELOS() Y PRINTSEPARADOR().
 	@Override
 	public void mostrarTablaDeVuelos(Aerolinea aerolinea, ArrayList<Vuelo> vuelos) 
 	{
@@ -44,6 +54,7 @@ public class TablasConsola implements GeneradorDeTablas {
 		}
 	}
 	
+	//RECIBE UNA LISTA DE TIQUETES Y SE ENCARGA DE MOSTRAR POR PANTALLA CADA UNO DE LOS PASAJEROS ASOCIADOS A ESA LISTA DE TIQUETES
 	@Override
 	public void mostrarTablaDePasajeros(ArrayList<Tiquete> tiquetes) 
 	{
@@ -59,6 +70,7 @@ public class TablasConsola implements GeneradorDeTablas {
 		System.out.println();
 	}
 	
+	//RECIBE UNA LISTA DE AEROLINEAS Y SE ENCARGA DE MOSTRAR POR PANTALLA LOS NOMBRES DE ESAS AEROLINEAS
 	@Override
 	public void mostrarTablaDeAerolineas(ArrayList<Aerolinea> aerolineas) 
 	{
@@ -73,6 +85,7 @@ public class TablasConsola implements GeneradorDeTablas {
 		System.out.println("----------------------");
 	}
 	
+	//RECIBE UNA LISTA DE ALOJAMIENTOS E IMPRIME UNA TABLA CON LOS ATRIBUTOS DE CADA ALOJAMIENTO.
 	public void mostrarTablaDeAlojamientos(ArrayList<Alojamiento> alojamientos)
 	{
 		System.out.println();
@@ -90,6 +103,7 @@ public class TablasConsola implements GeneradorDeTablas {
 		System.out.println();
 	}
 	
+	//IMPRIME POR PANTALLA UN ENCABEZADO CON EL NOMBRE DE LA AEROLINEA Y LOS ATRIBUTOS DE LOS VUELOS QUE POSEE LA AEROLINEA. 
 	static void printEncabezadoAerolinea(Aerolinea aerolinea) 
 	{
 		System.out.println("VUELOS DISPONIBLES DE LA AEROLINEA " + aerolinea.getNombre().toUpperCase());
@@ -98,8 +112,8 @@ public class TablasConsola implements GeneradorDeTablas {
 		System.out.println();  
 		System.out.println("--------------------------------------------------------------------------------------------------");
 		
-		//System.out.printf() PERMITE DARLE UN FORMATO A LOS DATOS DE SALIDA
-		//% INDICA QUE EN ESA POSICION SE VA A ESCRIBIR UN VALOR, SE PUEDEN PONER TANTOS COMO VARIABLES A MOSTRAR
+		// System.out.printf() PERMITE DARLE UN FORMATO A LOS DATOS DE SALIDA
+		// % INDICA QUE EN ESA POSICION SE VA A ESCRIBIR UN VALOR, SE PUEDEN PONER TANTOS COMO VARIABLES A MOSTRAR
 		// ESTAS VARIABLES SE ESCRIBEN A CONTINUACION DE LAS COMMILLAS Y SEPARADAS POR COMAS
 		// LA s INDICA QUE SE VA A MOSTRAR UNA CADENA DE CARACTERES, Y EL VALOR NUMERICO INDICA LA ALINEACION A LA DERECHA.
 	}
