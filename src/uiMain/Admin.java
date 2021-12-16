@@ -18,7 +18,6 @@ public class Admin {
 	//EL APUNTADOR DEBE SER DEL TIPO DE LA INTERFAZ
 
 	public static void main(String[] args) {
-		// CASOS DE PRUEBA !!!
 
 		Deserializador.deserializar();
 
@@ -135,7 +134,6 @@ public class Admin {
 			return;
 		}
 		Tiquete tiquete = new Tiquete((int) ID_tiquete, vuelo.getPrecio(), vuelo);
-		silla.setEstado(false);
 		tiquete.setSilla(silla);
 
 		// TOMAR DATOS DEL PASAJERO
@@ -169,6 +167,9 @@ public class Admin {
 		if (tiquete_solicitado == null) {
 			System.out.println("Lo sentimos, no tenemos un tiquete identificado con ese ID");
 			System.out.println();
+		}else if(tiquete_solicitado.getAlojamiento() != null) {
+			System.out.println("El tiquete ya posee un alojamiento, si quiere cambiarlo hagalo desde la opcion 4.\n");
+			return;
 		} else {
 			String destino = tiquete_solicitado.getVuelo().getDestino();
 			boolean hayAlojamientos = mostrarAlojamientosPorUbicacion(destino);
@@ -181,7 +182,10 @@ public class Admin {
 			if (alojamiento_solicitado == null) {
 				System.out.println("Lo sentimos, no tenemos un Alojamiento con ese nombre");
 				System.out.println();
-			} else {
+			}else if(!alojamiento_solicitado.getLocacion().equals(destino) ){
+				System.out.println("Lo sentimos, no tenemos un alojamiento con ese nombre en esa locacion\n");
+				return; }
+			else {
 				System.out.println("Cuantos dias desea quedarse en el alojamiento?");
 				int num_dias = sc.nextInt();
 				tiquete_solicitado.setAlojamiento(alojamiento_solicitado);
@@ -238,7 +242,6 @@ public class Admin {
 			System.out.println("Lo sentimos no se encuentran sillas disponibles con esas caracteristicas\n");
 			return;
 		}
-		silla.setEstado(false);
 		tiquete.getSilla().setEstado(true);
 		tiquete.setSilla(silla);
 
@@ -262,9 +265,13 @@ public class Admin {
 		String alojamiento = sc.next();
 		Alojamiento alojamiento_solicitado = Alojamiento.buscarAlojamientoPorNombre(alojamiento);
 		if (alojamiento_solicitado == null) {
-			System.out.println("Lo sentimos, no tenemos un Alojamiento con ese nombre\n");
+			System.out.println("Lo sentimos, no tenemos un alojamiento con ese nombre\n");
 			return -1;
-		} else {
+		}else if(!alojamiento_solicitado.getLocacion().equals(destino) ){
+			System.out.println("Lo sentimos, no tenemos un alojamiento con ese nombre en esa locacion\n");
+			return -1;
+			
+		}else {
 			System.out.println("Por favor ingrese el numero de dias que se va a quedar en el alojamiento");
 			int dias = sc.nextInt();
 			tiquete_solicitado.setAlojamiento(alojamiento_solicitado);

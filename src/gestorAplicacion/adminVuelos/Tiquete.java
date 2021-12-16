@@ -137,6 +137,7 @@ public class Tiquete implements Serializable {
 	}
 	public void setSilla(Silla silla) {
 		this.silla = silla;
+		silla.setEstado(false);
 	}
 	public Pasajero getPasajero() {
 		return pasajero;
