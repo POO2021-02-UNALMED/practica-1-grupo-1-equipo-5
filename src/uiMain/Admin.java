@@ -272,5 +272,83 @@ public class Admin {
 			return dias;
 		}
 	}
+	
+	// CASE 5 MAIN: OPCIONES DE ADMINISTRADOR
+		static void opcionesAdministrador() {
+
+			int opcion;
+			do {
+				
+				System.out.println("Que opcion desea realizar como administrador?");
+				System.out.println("1. Listar Pasajeros.");
+				System.out.println("2. Agregar Vuelo.");
+				System.out.println("3. Cancelar vuelo.");
+				System.out.println("4. Retirar un avion.");
+				System.out.println("5. Agregar Alojamiento.");
+				System.out.println("6. Eliminar Alojamiento.");
+				System.out.println("7. Salir del administrador.");
+				System.out.println("Por favor escoja una opcion: ");
+
+				opcion = sc.nextInt();
+				
+				switch (opcion) {
+					case 1: 
+						listarPasajeros(); 
+						break;
+					case 2: 
+						agregarNuevoVuelo(); 
+						break;
+					case 3: 
+						cancelarVuelos();
+						break;
+					case 4:
+						retirarAvion();
+						break;
+					case 5:
+						nuevoAlojamiento();
+						break;	
+					case 6:
+						retirarAlojamiento();
+						break;	
+					case 7: 
+						salirDelAdministrador();
+						break;
+					}	
+				}while (opcion != 7);
+		}
+
+		// METODOS DE LAS OPCIONES DE ADMINISTRADOR
+		
+		// CASE 1: LISTAR PASAJEROS DE UN VUELO
+		private static void listarPasajeros() { 
+		ArrayList<Aerolinea> aerolineas = Aerolinea.getAerolineas();
+		generadorDeTablas.mostrarTablaDeVuelosPorAerolineas(aerolineas);		
+		
+		System.out.println("Ingrese el ID del vuelo: ");
+		int IDBusqueda = sc.nextInt();
+		
+		ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
+		Vuelo vuelo =null;
+		for(Aerolinea i:aerolineas) {
+			if (i.buscarVueloPorID(i.getVuelos(), IDBusqueda) != null)
+			{
+				vuelo = i.buscarVueloPorID(i.getVuelos(), IDBusqueda);
+				break;
+			}
+		}
+		if(vuelo == null) {
+			System.out.println("No tenemos vuelos con ese ID.\n");
+			return;
+		}
+		tiquetes = vuelo.getTiquetes();
+		System.out.println("LISTA DE PASAJEROS PARA EL VUELO "+ IDBusqueda);
+
+		if (tiquetes.size()==0)
+			{
+				 System.out.println("El vuelo aun no tiene pasajeros asociados \n");
+			}else {
+				generadorDeTablas.mostrarTablaDePasajeros(tiquetes);
+			}
+		}
 
 }
