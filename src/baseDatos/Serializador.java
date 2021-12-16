@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
-import gestorAplicacion.Alojamiento.Alojamiento;
+import gestorAplicacion.alojamiento.Alojamiento;
 import gestorAplicacion.adminVuelos.Aerolinea;
 
 public class Serializador {
