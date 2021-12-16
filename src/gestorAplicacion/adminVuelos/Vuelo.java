@@ -1,3 +1,5 @@
+// CLASE VUELO
+// AUTORES: 
 package gestorAplicacion.adminVuelos;
 import java.io.Serializable;
 import gestorAplicacion.hangar.*;

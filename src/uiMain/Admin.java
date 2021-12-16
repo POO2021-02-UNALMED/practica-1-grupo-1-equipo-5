@@ -1,3 +1,5 @@
+// CLASE ADMIN PARA LA INTERACCION DEL USUARIO CON EL SISTEMA
+// AUTORES: JERONIMO SALAZAR, ALVARO GUERRERO, ESTEBAN ACOSTA, KAREN RIVERA
 package uiMain;
 
 import java.util.ArrayList;
@@ -15,7 +17,8 @@ public class Admin {
 
 	static Scanner sc = new Scanner(System.in);
 	static GeneradorDeTablas generadorDeTablas = new TablasConsola();
-	//EL APUNTADOR DEBE SER DEL TIPO DE LA INTERFAZ
+	//EL APUNTADOR DEBE SER DEL TIPO DE LA INTERFAZ, POR SI EN ALGUN MOMENTO HACEMOS OTRA CLASE QUE IMPLEMENTE LA INTERFACE
+	// Y QUERAMOS GENERAR LAS TABLAS EN OTRO FORMATO.
 
 	public static void main(String[] args) {
 
@@ -62,8 +65,7 @@ public class Admin {
 	// CASE 1 MAIN: VER TODOS LOS VUELOS DISPONIBLES POR AEROLINEAS
 
 	// MUESTRA UNA TABLA POR CADA AEROLINEA CON LOS VUELOS QUE SE TIENEN
-	// DISPONIBLES, HACIENDO USO DE LOS METODOS PRINTENCABEZADO()
-	// PRINTVUELOS() Y PRINTSEPARADOR()
+	// DISPONIBLES, HACIENDO USO DEL generadorDeTablas.
 	static void mostrarVuelosPorAerolineas() {
 		ArrayList<Aerolinea> aerolineasDisponibles = Aerolinea.getAerolineas();
 		generadorDeTablas.mostrarTablaDeVuelosDisponiblesPorAerolineas(aerolineasDisponibles);
@@ -103,8 +105,7 @@ public class Admin {
 
 		System.out.println("Por favor ingrese el nombre de la aerolinea con la que desea viajar");
 		String nombre_aerolinea = sc.next();
-		Aerolinea aerolinea = Aerolinea.buscarAerolineaPorNombre(nombre_aerolinea); // eN ESTE METODO SE CAMBIO EL
-																					// equals
+		Aerolinea aerolinea = Aerolinea.buscarAerolineaPorNombre(nombre_aerolinea); 
 
 		while (aerolinea == null) {
 			System.out.println("Por favor ingrese un nombre valido");
@@ -114,7 +115,7 @@ public class Admin {
 
 		System.out.println("Por favor ingrese el ID del vuelo que desea comprar");
 		int ID = sc.nextInt();
-		Vuelo vuelo = aerolinea.buscarVueloPorID(aerolinea.getVuelos(), ID); // eN ESTE METODO SE CAMBIO EL equals
+		Vuelo vuelo = aerolinea.buscarVueloPorID(aerolinea.getVuelos(), ID); 
 		while (vuelo == null) {
 			System.out.println("Por favor ingrese un ID valido");
 			ID = sc.nextInt();
@@ -126,7 +127,7 @@ public class Admin {
 			ID_tiquete = 100 + Math.random() * 900;
 		}
 
-		// ELEGIR SILLA
+		// SECUENCIA DE PASOS PARA ELEGIR UNA SILLA
 		System.out.println("Que tipo de silla desea comprar?");
 		Silla silla = elegirSilla(vuelo);
 		if (silla == null) {
@@ -147,6 +148,7 @@ public class Admin {
 		System.out.println("Ingrese un e-mail");
 		String correo = sc.next();
 
+		//SE CREA EL OBJETO PASAJERO Y SE LE ASIGNA AL TIQUETE GENERADO EN EL METODO
 		Pasajero pasajero = new Pasajero(pasaporte, nombre, tiquete, edad, correo);
 		tiquete.setPasajero(pasajero);
 
@@ -164,28 +166,29 @@ public class Admin {
 		System.out.println("Por favor ingresa el ID del tiquete que se genero al comprar su vuelo:");
 		int tiqueteID = sc.nextInt();
 		Tiquete tiquete_solicitado = Aerolinea.BuscarTiquete(tiqueteID);
-		if (tiquete_solicitado == null) {
+		
+		if (tiquete_solicitado == null) { 
 			System.out.println("Lo sentimos, no tenemos un tiquete identificado con ese ID");
 			System.out.println();
 		}else if(tiquete_solicitado.getAlojamiento() != null) {
 			System.out.println("El tiquete ya posee un alojamiento, si quiere cambiarlo hagalo desde la opcion 4.\n");
 			return;
-		} else {
+		} else { 
 			String destino = tiquete_solicitado.getVuelo().getDestino();
-			boolean hayAlojamientos = mostrarAlojamientosPorUbicacion(destino);
-			if (!hayAlojamientos) {
+			boolean hayAlojamientos = mostrarAlojamientosPorUbicacion(destino); //ESTE METODO SE DETALLA MAS ABAJO 
+			if (!hayAlojamientos) { 
 				return;
 			}
 			System.out.println("Por favor ingresa el nombre del alojamiento que desea anadir a su compra:");
 			String alojamiento = sc.next();
 			Alojamiento alojamiento_solicitado = Alojamiento.buscarAlojamientoPorNombre(alojamiento);
-			if (alojamiento_solicitado == null) {
+			if (alojamiento_solicitado == null) { 
 				System.out.println("Lo sentimos, no tenemos un Alojamiento con ese nombre");
 				System.out.println();
-			}else if(!alojamiento_solicitado.getLocacion().equals(destino) ){
+			}else if(!alojamiento_solicitado.getLocacion().equals(destino) ){ 
 				System.out.println("Lo sentimos, no tenemos un alojamiento con ese nombre en esa locacion\n");
 				return; }
-			else {
+			else { 
 				System.out.println("Cuantos dias desea quedarse en el alojamiento?");
 				int num_dias = sc.nextInt();
 				tiquete_solicitado.setAlojamiento(alojamiento_solicitado);
@@ -467,8 +470,7 @@ public class Admin {
 	}
 
 	// CASE 4: RETIRAR AERONAVE
-	// SI ENCUENTRA EL NOMBRE DEL AVION, ELIMINA EL VUELO QUE ESTABA ASOCIADO A EL
-	// AVION QUE SE DESEA RETIRAR
+	// SI ENCUENTRA EL NOMBRE DEL AVION QUE SE DESEA RETIRAR, LO MARCA COMO DESCOMPUESTO Y CANCELA EL VUELO QUE TENIA ASOCIADO ESTA AERONAVE
 	public static void retirarAvion() {
 		boolean aeronave_encontrada = false;
 		System.out.println("Ingrese el nombre de la Aeronave que se desea retirar:");
@@ -516,8 +518,8 @@ public class Admin {
 		
 	}
 	//CASE 7: RETIRAR ALOJAMIENTO
-	// MUESTRA LOS ALOJAMIENTOS QUE SE TIENEN DISPONIBLES, PARA POSTERIORMENTE PREGUNTAR POR EL NOMBRE DEL ALOJAMIENTO
-	// QUE SE DESEA RETIRAR DE LA LISTA Y ELIMINARLO DE LA LISTA DE ALOJAMIENTOS.
+	// MUESTRA LOS ALOJAMIENTOS QUE SE TIENEN DISPONIBLES HACIENDO USO DEL generadorDeTablas, PARA POSTERIORMENTE PREGUNTAR POR EL NOMBRE DEL 
+    // ALOJAMIENTO QUE SE DESEA RETIRAR DE LA LISTA Y ELIMINARLO DE LA LISTA DE ALOJAMIENTOS.
 	public static void retirarAlojamiento()
 	{
 		System.out.println("Estos son los alojamientos que tenemos asociados:");
@@ -557,13 +559,13 @@ public class Admin {
 		System.exit(0);
 	}
 	
-// METODOS AUXILIARES - TABLA DE VUELOS POR...
+// METODOS AUXILIARES 
 	
 	// OPCION 1: CONSULTAR VUELO POR DESTINO
 	
-	// ESTE METODO RECIBE COMO PARAMETRO UN DESTINO (STRING) Y RECORRE CADA AEROLINEA EJECUTANDO EL METODO DE AEROLINEA BUSCARVUELOPORDESTINO()
-	// PARA ALMACENAR ESTOS VUELOS EN UNA LISTA Y MOSTRARLOS POR PANTALLA. SI ENCONTRO AL MENOS UN VUELO EN ALGUNA AEROLINEA
-	// QUE TUVIERA ASOCIADO ESTE DESTINO RETORNA LA VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
+	// ESTE METODO RECIBE COMO PARAMETRO UN DESTINO (STRING) Y RECORRE CADA AEROLINEA EJECUTANDO EL METODO DE AEROLINEA buscarVueloPorDestino()
+	// PARA ALMACENAR ESTOS VUELOS EN UNA LISTA Y MOSTRARLOS POR PANTALLA CON generadorDeTablas.mostrarTablaDeVuelos(). SI ENCONTRO AL MENOS 
+	// UN VUELO EN ALGUNA AEROLINEA QUE TUVIERA ASOCIADO ESTE DESTINO RETORNA LA VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
 	static boolean consultarVuelosPorDestino(String destino) 
 	{
 		System.out.println("Estos son los vuelos disponibles hacia " + destino + " por nuestras aerolineas:" );
@@ -592,9 +594,9 @@ public class Admin {
 	// OPCION 2: CONSULTAR VUELO POR DESTINO Y FECHA
 	
 	// ESTE METODO RECIBE COMO PARAMETRO UN DESTINO (STRING) Y UNA FECHA (STRING) Y RECORRE CADA AEROLINEA EJECUTANDO EL METODO DE AEROLINEA 
-	// BUSCARVUELOPORDESTINO() SI LOS ENCUENTRA, EJECUTA EL METODO DE AEROLINEA BUSCARVUELOPORFECHA() PARA ALMACENAR ESTOS VUELOS EN UNA LISTA 
-	// Y MOSTRARLOS POR PANTALLA. SI ENCONTRO AL MENOS UN VUELO EN ALGUNA AEROLINEA QUE TUVIERA ASOCIADO ESE DESTINO Y ESA FECHA, 
-	// RETORNA LA VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
+	// buscarVueloPorDestino() SI LOS ENCUENTRA, EJECUTA EL METODO DE AEROLINEA buscarVueloPorFecha() PARA ALMACENAR ESTOS VUELOS EN UNA LISTA 
+	// Y MOSTRARLOS POR PANTALLA CON generadorDeTablas.mostrarTablaDeVuelos(). SI ENCONTRO AL MENOS UN VUELO EN ALGUNA AEROLINEA QUE TUVIERA 
+	// ASOCIADO ESE DESTINO Y ESA FECHA, RETORNA LA VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
 	static boolean consultarVuelosPorDestinoYFecha(String destino, String fecha) 
 	{
 		System.out.println();
@@ -626,8 +628,8 @@ public class Admin {
 // METODOS AUXILIARES - TABLA ALOJAMIENTOS
 
 	// ESTE METODO RECIBE COMO PARAMETRO UNA UBICACION (STRING) Y SE ENCARGA DE BUSCAR LOS ALOJAMIENTOS QUE TIENEN ASOCIADA ESTA UBICACION
-	// PARA POSTERIORMENTE MOSTRARLOS EN UNA TABLA POR PANTALLA. SI ENCONTRO AL MENOS UN ALOJAMIENTO QUE TUVIERA ESA UBICACION, RETORNA LA 
-	// VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
+	// PARA POSTERIORMENTE MOSTRARLOS EN UNA TABLA POR PANTALLA CON generadorDeTablas.mostrarTablaDeAlojamientos(). SI ENCONTRO AL MENOS UN 
+	// ALOJAMIENTO QUE TUVIERA ESA UBICACION, RETORNA LA VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
 	static boolean mostrarAlojamientosPorUbicacion(String ubicacion) 
 	{
 		System.out.println("Estos son los alojamientos disponibles en " + ubicacion + ":" );

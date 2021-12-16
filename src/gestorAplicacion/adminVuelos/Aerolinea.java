@@ -1,3 +1,5 @@
+// CLASE AEROLINEA 
+// AUTORES: 
 package gestorAplicacion.adminVuelos;
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -10,11 +10,11 @@ import gestorAplicacion.adminVuelos.Tiquete;
 import gestorAplicacion.adminVuelos.Vuelo;
 
 //IMPLEMENTA LA INTERFACE GENERADORDETABLAS, PARA IMPRIMIR POR PANTALLA LOS DATOS PASADOS A LOS METODOS EN DETERMINADO FORMATO
-//HACIENDO USO DE SYSTEM.OUT.PRINTF()
+//HACIENDO USO DE System.out.printf() (SE DETALLA EN LOS COMENTARIOS DE printEncabezadoAerolinea())
 public class TablasConsola implements GeneradorDeTablas {
 
-	//RECIBE UNA LISTA DE AEROLINEAS E IMPRIME POR PANTALLA LOS VUELOS DISPONIBLES (QUE NO ESTÉN COMPLETOS) DE CADA AEROLINEA HACIENDO 
-	//USO DE LOS METODOS PRINTENCABEZADOAEROLINEA(), PRINTVUELOS() Y PRINTSEPARADOR().
+	//RECIBE UNA LISTA DE AEROLINEAS E IMPRIME POR PANTALLA LOS VUELOS DISPONIBLES (QUE NO ESTEN COMPLETOS) DE CADA AEROLINEA HACIENDO 
+	//USO DE LOS METODOS printEncabezadoAerolinea(), printVuelos() Y printSeparador().
 	@Override
 	public void mostrarTablaDeVuelosDisponiblesPorAerolineas(ArrayList<Aerolinea> aerolineas) 
 	{
@@ -28,7 +28,7 @@ public class TablasConsola implements GeneradorDeTablas {
 	}
 	
 	//RECIBE UNA LISTA DE AEROLINEAS E IMPRIME POR PANTALLA TODOS LOS VUELOS DE CADA AEROLINEA HACIENDO 
-	//USO DE LOS METODOS PRINTENCABEZADOAEROLINEA(), PRINTVUELOS() Y PRINTSEPARADOR().
+	//USO DE LOS METODOS printEncabezadoAerolinea(), printVuelos() Y printSeparador()
 	@Override
 	public void mostrarTablaDeVuelosPorAerolineas(ArrayList<Aerolinea> aerolineas) 
 	{
@@ -42,7 +42,7 @@ public class TablasConsola implements GeneradorDeTablas {
 	}
 	
 	//RECIBE UNA AEROLINEA Y SUS VUELOS, E IMPRIME POR PANTALLA ESTOS VUELOS HACIENDO 
-	//USO DE LOS METODOS PRINTENCABEZADOAEROLINEA(), PRINTVUELOS() Y PRINTSEPARADOR().
+	//USO DE LOS METODOS printEncabezadoAerolinea(), printVuelos() Y printSeparador()
 	@Override
 	public void mostrarTablaDeVuelos(Aerolinea aerolinea, ArrayList<Vuelo> vuelos) 
 	{
