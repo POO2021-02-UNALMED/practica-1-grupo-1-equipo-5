@@ -1,7 +1,7 @@
 package uiMain;
 import java.util.ArrayList;
 import gestorAplicacion.adminVuelos.*;
-import gestorAplicacion.Alojamiento.*;
+import gestorAplicacion.alojamiento.*;
 
 public interface GeneradorDeTablas{
 	public abstract void mostrarTablaDeVuelosDisponiblesPorAerolineas(ArrayList<Aerolinea> aerolineas);
