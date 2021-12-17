@@ -60,32 +60,9 @@ public class Avion extends Aeronave {
 	}
 
 	// METODOS
-	/*
-	 * Este método recorreran los arreglos de sillas ejecutivos y economicas de cada
-	 * avión y avioneta
-	 * para verificar la cantidad de sillas que estan ocupadas y retornaran dicha
-	 * cantidad
-	 */
-	public int Calcular_Sillas_Ocupadas() {
-		int cont = 0;
-		for (Silla i : this.getSILLASECONOMICAS()) {
-			if (i.isEstado()) {
-				cont += 1;
-			}
-		}
-		for (Silla j : this.getSILLASEJECUTIVAS()) {
-			if (j.isEstado()) {
-				cont += 1;
-			}
-		}
-		return cont;
-	}
 
-	/*
-	 * Este método recibe un tipo de dato double de la distancia que hay desde el
-	 * lugar de origen al lugar de destino
-	 * y retornara el costo total de gasolina por recorrer el trayecto
-	 */
+	/*ESTE METODO RECIBE UN TIPO DE DATO DOUBLE DE LA DISTANCIA QUE HAY DESDE EL LUGAR DE ORIGEN AL LUGAR DE DESTINO
+	Y RETONARNA EL COSTO TOTAL DE GASOLINA PARA RECORRER EL TRAYECTO*/
 	public double Calcular_Consumo_Gasolina(double distancia_en_km) {
 		double consumido;
 		consumido = this.getGastoGasolina() * distancia_en_km;

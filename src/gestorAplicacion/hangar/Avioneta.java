@@ -60,7 +60,7 @@ public class Avioneta extends Aeronave {
 	 * para verificar la cantidad de sillas que estan ocupadas y retornaran dicha
 	 * cantidad
 	 */
-	public int Calcular_Sillas_Ocupadas() {
+	public String Calcular_Sillas_Ocupadas() {
 		int cont = 0;
 		for (Silla i : this.getSILLASECONOMICAS()) {
 			if (i.isEstado()) {
@@ -72,7 +72,7 @@ public class Avioneta extends Aeronave {
 				cont += 1;
 			}
 		}
-		return cont;
+		return "Sillas ocupadas en la avioneta"+cont;
 	}
 
 	/*

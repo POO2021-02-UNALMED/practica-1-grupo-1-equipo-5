@@ -190,7 +190,7 @@ public class Admin {
 			String alojamiento = sc.next();
 			Alojamiento alojamiento_solicitado = Alojamiento.buscarAlojamientoPorNombre(alojamiento);
 			if (alojamiento_solicitado == null) { 
-				System.out.println("Lo sentimos, no tenemos un Alojamiento con ese nombre");
+				System.out.println("Lo sentimos, no tenemos un alojamiento con ese nombre");
 				System.out.println();
 			}else if(!alojamiento_solicitado.getLocacion().equals(destino) ){ 
 				System.out.println("Lo sentimos, no tenemos un alojamiento con ese nombre en esa locacion\n");
@@ -434,7 +434,7 @@ public class Admin {
 		String destino = sc.next();
 		System.out.println();
 
-		System.out.println("Iingrese la distancia (KM):");
+		System.out.println("Ingrese la distancia (KM):");
 		double distancia = sc.nextDouble();
 		System.out.println();
 

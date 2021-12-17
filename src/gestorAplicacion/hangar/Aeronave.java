@@ -5,7 +5,7 @@ public abstract class Aeronave implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	// ATRIBUTOS
-	protected final int Gasto_gasolina = 120;
+	protected final  int GASTO_GASOLINA = 120;
 	private String nombre;
 	private Aerolinea aerolinea;
 	private boolean descompuesto;
@@ -44,7 +44,7 @@ public abstract class Aeronave implements Serializable{
 	}
 
 	public int getGastoGasolina() {
-		return Gasto_gasolina;
+		return GASTO_GASOLINA;
 	}
 
 	public String getNombre() {
@@ -93,7 +93,21 @@ public abstract class Aeronave implements Serializable{
 	}
 	/*ESTE METODO RECORRAN LOS ARREGLOS DE SILLAS EJECUTIVOS Y ECONOMICAS DE CADA AVION Y AVIONETA 
 	PARA VERIFICAR LA CANTIDAD DE SILLAS QUE ESTAN OCUPADAS Y RETORNAR DICHA CANTIDAD*/
-	public abstract int Calcular_Sillas_Ocupadas();
+
+	public String Calcular_Sillas_Ocupadas() {
+		int cont = 0;
+		for (Silla i : this.getSILLASECONOMICAS()) {
+			if (i.isEstado()) {
+				cont += 1;
+			}
+		}
+		for (Silla j : this.getSILLASEJECUTIVAS()) {
+			if (j.isEstado()) {
+				cont += 1;
+			}
+		}
+		return "Esta es la cantidad de silla ocupadas:"+cont;
+	}
 
 	/*ESTE METODO RECIBE UN TIPO DE DATO DOUBLE DE LA DISTANCIA QUE HAY DESDE EL LUGAR DE ORIGEN AL LUGAR DE DESTINO
 	Y RETONARNA EL COSTO TOTAL DE GASOLINA PARA RECORRER EL TRAYECTO*/
