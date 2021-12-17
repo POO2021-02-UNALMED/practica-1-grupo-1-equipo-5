@@ -562,7 +562,7 @@ public class Admin {
 		{
 			for (int i = 0; i < Alojamiento.getAlojamientos().size(); i++ )
 			{
-				if (Alojamiento.getAlojamientos().get(i).getNombre().equals(nombre))
+				if (Alojamiento.getAlojamientos().get(i).getNombre().equalsIgnoreCase(nombre))
 				{
 					Alojamiento.getAlojamientos().remove(i);
 					System.out.println("El alojamiento " + nombre + " se ha eliminado correctamente.");
