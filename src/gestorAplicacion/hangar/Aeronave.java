@@ -13,7 +13,7 @@ public abstract class Aeronave implements Serializable{
 	private Silla[] SILLAS_EJECUTIVAS;
 
 	// CONTRUCTOR
-	public Aeronave(String nombre, Aerolinea aerolinea) {
+	protected Aeronave(String nombre, Aerolinea aerolinea) {
 		this.nombre = nombre;
 		this.aerolinea = aerolinea;
 	}
