@@ -91,11 +91,11 @@ public abstract class Aeronave implements Serializable{
 		}
 		return null;
 	}
-	/*Este método recorreran los arreglos de sillas ejecutivos y economicas de cada avión y avioneta
-	para verificar la cantidad de sillas que estan ocupadas y retornaran dicha cantidad*/
+	/*ESTE METODO RECORRAN LOS ARREGLOS DE SILLAS EJECUTIVOS Y ECONOMICAS DE CADA AVION Y AVIONETA 
+	PARA VERIFICAR LA CANTIDAD DE SILLAS QUE ESTAN OCUPADAS Y RETORNAR DICHA CANTIDAD*/
 	public abstract int Calcular_Sillas_Ocupadas();
 
-	/*Este método recibe un tipo de dato double de la distancia que hay desde el lugar de origen al lugar de destino
-	y retornara el costo total de gasolina por recorrer el trayecto*/
+	/*ESTE METODO RECIBE UN TIPO DE DATO DOUBLE DE LA DISTANCIA QUE HAY DESDE EL LUGAR DE ORIGEN AL LUGAR DE DESTINO
+	Y RETONARNA EL COSTO TOTAL DE GASOLINA PARA RECORRER EL TRAYECTO*/
 	public abstract double Calcular_Consumo_Gasolina(double distancia_en_km);
 }
