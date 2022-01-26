@@ -5,7 +5,7 @@ from ssl import ALERT_DESCRIPTION_ACCESS_DENIED
 
 from gestorAplicacion.alojamiento.Alojamiento import Alojamiento
 from gestorAplicacion.adminVuelos.Aerolinea import Aerolinea
-from gestorAplicacion.adminVuelos.Pasajero import Pasajero 
+from gestorAplicacion.adminVuelos.Pasajero import Pasajero
 from gestorAplicacion.adminVuelos.Tiquete import Tiquete
 from gestorAplicacion.adminVuelos.Vuelo import Vuelo
 from gestorAplicacion.hangar.Aeronave import Aeronave
@@ -19,14 +19,14 @@ class Admin(object):
 
     @staticmethod
     def main():
-        
+
         picklefile = open('Aerolineas','rb')
         picklefile2 = open('Alojamientos','rb')
         Aerolinea.setAerolineas(pickle.load(picklefile))
         Alojamiento.setAlojamientos(pickle.load(picklefile2))
         picklefile.close()
         picklefile2.close()
-        
+
         #MENU PRINCIPAL
         opcion = None
         condition = True
@@ -66,7 +66,7 @@ class Admin(object):
     def mostrarVuelosPorAerolineas():
         aerolineasDisponibles = Aerolinea.getAerolineas()
         Admin.mostrarTablaDeVuelosDisponiblesPorAerolineas(aerolineasDisponibles)
-        
+
     # CASE 2 MAIN: GENERAR TIQUETE DE COMPRA DE VUELO
     # EL METODO PERMITE GENERAR UN TIQUETE DE COMPRA DE UN VUELO AL BUSCAR POR DESTINO O POR DESTINO Y FECHA
     # LUEGO DE ELEGIR UN VUELO SE TOMAN LOS DATOS DEL PASAJERO Y SE ELIGE UNA SILLA EN LA AERONAVE
@@ -190,7 +190,7 @@ class Admin(object):
                 print("Perfecto! el alojamiento " + alojamiento_solicitado.getNombre() + " se ha agregado correctamente a su tiquete de compra.")
                 print()
                 print(tiquete_solicitado)
-            
+
     # CASE 4 MAIN: MODIFICAR TIQUETE COMPRADO
     # NOS PERMITE MODIFICAR EL ALOJAMIENTO Y LA SILLA DE UN TIQUETE
     # PRIMERO SOLICITANDO UN ID DE TIQUETE Y VERIFICAR QUE SI EXISTE,
@@ -223,7 +223,7 @@ class Admin(object):
 
     # ESTE METODO RECIBE UN TIQUETE AL CUAL SE LE VA A MODIFICAR EL ATRIBUTO SILLA:
     # LO HACE CAMBIANDO EL ATRIBUTO estaDisponible DE SU SILLA ACTUAL A true Y
-    # ASIGNANDO OTRA SILLA HACIENDO USO DEL METODO elegirSilla	
+    # ASIGNANDO OTRA SILLA HACIENDO USO DEL METODO elegirSilla
     @staticmethod
     def modificarSilla(tiquete):
 
@@ -244,7 +244,7 @@ class Admin(object):
 
     # ESTE METODO RECIBE UN TIQUETE AL CUAL SE LE VA A MODIFICAR EL ATRIBUTO ALOJAMIENTO (DEBE DE TENER UNO YA ASIGANDO
     # EN CASO CONTRARIO NO LE PERMITITRA CONTINUAR Y LO REGRESARA AL MENU DE ADMINISTRADOR )
-    # SI SI POSEE UN ALOJAMIENTO, EXTRAERA EL DESTINO DEL VUELO DEL TIQUETE E IMPRIMIRA UNA TABLA CON LOS ALOJAMIENTOS 
+    # SI SI POSEE UN ALOJAMIENTO, EXTRAERA EL DESTINO DEL VUELO DEL TIQUETE E IMPRIMIRA UNA TABLA CON LOS ALOJAMIENTOS
     # QUE POSEEN UNA LOCACION IGUAL A ESTE, LUEGO RECIBE EL NOMBRE DEL ALOJAMIENTO QUE DESEE Y BUSCARA UN ALOJAMIENTO
     # POR ESE NOMBRE Y EN ESA LOCACION EN CASO DE ENCONTRARLO SE LO ASIGNARA AL ATRIBUTO alojamiento DEL TIQUETE
     @staticmethod
@@ -273,7 +273,7 @@ class Admin(object):
             print()
             return dias
 
-    # CASE 5 MAIN: OPCIONES DE ADMINISTRADOR 
+    # CASE 5 MAIN: OPCIONES DE ADMINISTRADOR
     #	 EN ESTE MENU PARA EL ADMINISTRADOR VAN A INTERACTUAR TODAS LAS CLASES PARA PERMITIR
     #	 FUNCIONALIDADES ESPECIFICAS PARA CONTROLAR LOS VUELOS Y LOS ALOJAMIENTOS
     @staticmethod
@@ -317,10 +317,10 @@ class Admin(object):
     # CASE 1: LISTAR PASAJEROS DE UN VUELO
 
     #ESTE METODO NO RECIBRE PARAMETROS DE ENTRADAS Y RETORNO ES VACIO. SU OBJETIVO ES
-    #MOSTRAR LAS LISTAS DE PASAJAEROS ASOCIADOS A UN VUELO. 
+    #MOSTRAR LAS LISTAS DE PASAJAEROS ASOCIADOS A UN VUELO.
     #PARA ESTO ACCEDEMOS A TRAVES DEL ID DEL VUELO E INVOCAMOS EL METODO BUSCAR VUELO POR ID.
     #AL FINAL NOS MOSTRARA SI EL VUELO TIENE PASAJEROS ASOCIADOS O NO, Y LA INFORMACION ASOCIADA
-    #AL ID DEL TIQUETE DEL PASAJAERO, SU NOMBRE, SU PASARTE Y SU EMAIL. 
+    #AL ID DEL TIQUETE DEL PASAJAERO, SU NOMBRE, SU PASARTE Y SU EMAIL.
 
     @staticmethod
     def listarPasajeros():
@@ -348,7 +348,7 @@ class Admin(object):
             Admin.mostrarTablaDePasajeros(tiquetes)
 
     # CASE 2: AGREGAR NUEVO VUELO A UNA AEROLINEA
-    #	 ESTE METODO NO RECIBE PARAMETROS DE ENTRADA PORQUE SE LE PIDE AL USUARIO ADMINISTRADOR INGREGAR 
+    #	 ESTE METODO NO RECIBE PARAMETROS DE ENTRADA PORQUE SE LE PIDE AL USUARIO ADMINISTRADOR INGREGAR
     #	   POR CONSOLA LOS DATOS NECESARIOS PARA AGREGAR UN NUEVO VUELO A UN AEROLINEA.
     #	   PARA ESTO SE HARA UNA VERFICACION DE LA EXISTENCIA DE LA AEROLINEA Y POSTERIOEMENTE SE RECIBIRAN LOS
     #	   PARAMETROS NECESARIOS PARA INSTANCIAR UN VUELO Y AREGARLO AL ARREGLO DE VUELOS QUE LA AEROLINEA
@@ -384,3 +384,195 @@ class Admin(object):
 
         print("\nIngrese el precio:")
         precio = int(input())
+        print("Ingrese el origen:")
+        origen = input()
+        print()
+
+        print("Ingrese el destino:")
+        destino = input()
+        print()
+
+        print("Ingrese la distancia (KM):")
+        distancia = int(input())
+        print()
+
+        print("Ingrese fecha de salida (DD-MM-AAAA):")
+        fechaSalida = input()
+        print()
+
+        print("Ingrese hora de salida (24:00):")
+        horaSalida = input()
+        print()
+
+        print("Que tipo de aeronave es?")
+        print("Ingrese 1 para avion" + "\n" + "Ingrese 2 para avioneta")
+        aeronave = int(input())
+
+        while aeronave != 1 and aeronave != 2:
+            print("Por favor ingrese una opcion valida")
+            aeronave = int(input())
+
+        if aeronave == 1:
+            print("Ingrese el nombre del avion:")
+            nombreAvion = input()
+            print()
+
+            avion = Avion(nombreAvion, Aerolinea.buscarAerolineaPorNombre(nombreAerolinea))
+            vuelo = Vuelo(iD, precio, origen, destino, avion, distancia, fechaSalida, horaSalida)
+            print("***************************************")
+            print("SU VUELO SE HA REGISTRADO CORRECTAMENTE")
+            print("***************************************\n")
+
+        elif aeronave == 2:
+            print("INGRESE EL NOMBRE DE LA AVIONETA:")
+            nombreAvioneta = input()
+            print()
+            avioneta = Avioneta(nombreAvioneta, Aerolinea.buscarAerolineaPorNombre(nombreAerolinea))
+            vuelo = Vuelo(iD, precio, origen, destino, avioneta, distancia, fechaSalida, horaSalida)
+            print("***************************************")
+            print("SU VUELO SE HA REGISTRADO CORRECTAMENTE")
+            print("***************************************\n")
+
+    # CASE 3: CANCELAR VUELO DE UNA AEROLINEA
+    #	 ESTE METODO NO RECIBE PARAMETRO DE ENTRADA Y OFRECE LA FUNCIONALIDAD DE CANCELAR VUELOS ASOCIADOS A UNA AEROLINEA
+    #	   SE INVOCAR A LOS METODOS BUSCAR VUELO POR ID Y CANCELAR VUELOS QUE ESTAN IMPLEMENTADO EN AEROLINEA
+    #
+    @staticmethod
+    def cancelarVuelos():
+        print("Estos son los vuelos que tenemos:\n")
+        aerolineas = Aerolinea.getAerolineas()
+        Admin.mostrarTablaDeVuelosPorAerolineas(aerolineas)
+        print("Ingrese el ID del vuelo a eliminar:")
+        id = int(input())
+
+        for aerolinea in aerolineas:
+            i = 0
+            while i < len(aerolinea.getVuelos()):
+                if aerolinea.buscarVueloPorID(aerolinea.getVuelos(), id) is not None:
+                    aerolinea.cancelarVuelo(id)
+                    print("El vuelo se ha eliminado correctamente.")
+                    return
+                i += 1
+        print("No tenemos un vuelo identificado con ese ID \n")
+
+    # CASE 4: RETIRAR AERONAVE
+    # SI ENCUENTRA EL NOMBRE DEL AVION QUE SE DESEA RETIRAR, LO MARCA COMO DESCOMPUESTO Y CANCELA EL VUELO QUE TENIA ASOCIADO ESTA AERONAVE
+    @staticmethod
+    def retirarAvion():
+        aeronave_encontrada = False
+        print("Ingrese el nombre de la Aeronave que se desea retirar:")
+        nombre_aeronave = input()
+        aerolineasDisponibles = Aerolinea.getAerolineas()
+        i = 0
+        while i < len(aerolineasDisponibles):
+            aerolinea = aerolineasDisponibles[i]
+
+            vuelo = aerolinea.buscarVueloPorAeronave(aerolinea.getVuelos(), nombre_aeronave)
+            if vuelo != None:
+                vuelo.getAeronave().setDescompuesto(True)
+                aerolinea.cancelarVuelo(vuelo.getID())
+                print("Se ha retirado la aeronave descompuesta y el vuelo asociado a este.")
+                print()
+                aeronave_encontrada = True
+                break
+            i += 1
+        if not aeronave_encontrada:
+            print("Lo sentimos, no encontramos una aeronave asociada al nombre que ingreso.")
+            print()
+
+    #CASE 5: AGREGAR ALOJAMIENTO
+    # PERMITE AGREGAR UN ALOJAMIENTO A LA LISTA DE ALOJAMIENTOS DISPONIBLES, ESTO DESDE SU CONSTRUCTOR
+    @staticmethod
+    def nuevoAlojamiento():
+        print("Ingrese el nombre del alojamiento que desea agregar a nuestra lista:")
+        nombre = input()
+        print()
+
+        print("Ingrese la locacion:")
+        locacion = input()
+        print()
+
+        print("Ingrese el precio por dia:")
+        precio = int(input())
+        print()
+
+        print("Ingrese el numero de estrellas (1-5):")
+        estrellas = int(input())
+        print()
+
+        nuevoAlojamiento = Alojamiento(nombre, locacion, precio, estrellas)
+        print("Perfecto! El alojamiento " + nuevoAlojamiento.getNombre() + " se ha agregado a nuestra lista.")
+
+    #CASE 7: RETIRAR ALOJAMIENTO
+    # MUESTRA LOS ALOJAMIENTOS QUE SE TIENEN DISPONIBLES HACIENDO USO DEL generadorDeTablas, PARA POSTERIORMENTE PREGUNTAR POR EL NOMBRE DEL
+    # ALOJAMIENTO QUE SE DESEA RETIRAR DE LA LISTA Y ELIMINARLO DE LA LISTA DE ALOJAMIENTOS.
+    @staticmethod
+    def retirarAlojamiento():
+        print("Estos son los alojamientos que tenemos asociados:")
+        Admin.mostrarTablaDeAlojamientos(Alojamiento.getAlojamientos())
+
+        print("Ingrese el nombre del alojamiento que desea retirar de nuestra lista:")
+        nombre = input()
+
+        if Alojamiento.buscarAlojamientoPorNombre(nombre) != None:
+            i = 0
+            while i < len(Alojamiento.getAlojamientos()):
+                if Alojamiento.getAlojamientos()[i].getNombre().lower() == nombre.lower():
+                    Alojamiento.getAlojamientos().pop(i)
+                    print("El alojamiento " + nombre + " se ha eliminado correctamente.")
+                    print()
+                i += 1
+        else:
+            print("Lo sentimos, no tenemos un alojamiento con este nombre.")
+            print()
+
+    # CASE 9: SALIR DEL ADMINISTRADOR
+    @staticmethod
+    def salirDelAdministrador():
+        print("Gracias por usar nuestras opciones de administrador! \n")
+
+    #	CASE 6 MAIN: FINALIZAR SISTEMA DE ADMINISTRACION DE VUELOS
+    @staticmethod
+    def salirDelSistema():
+        print("Gracias por usar nuestro servicio!")
+
+        picklefile = open('Aerolineas', 'wb')
+        picklefile2 = open('Alojamientos','wb')
+        pickle.dump(Aerolinea._aerolineas, picklefile)
+        pickle.dump(Alojamiento._alojamientos,picklefile2)
+        picklefile.close()
+        picklefile2.close()
+
+# METODOS AUXILIARES
+
+    # OPCION 1: CONSULTAR VUELO POR DESTINO
+
+    # ESTE METODO RECIBE COMO PARAMETRO UN DESTINO (STRING) Y RECORRE CADA AEROLINEA EJECUTANDO EL METODO DE AEROLINEA buscarVueloPorDestino()
+    # PARA ALMACENAR ESTOS VUELOS EN UNA LISTA Y MOSTRARLOS POR PANTALLA CON generadorDeTablas.mostrarTablaDeVuelos(). SI ENCONTRO AL MENOS
+    # UN VUELO EN ALGUNA AEROLINEA QUE TUVIERA ASOCIADO ESTE DESTINO RETORNA LA VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
+    @staticmethod
+    def consultarVuelosPorDestino(destino):
+        print("Estos son los vuelos disponibles hacia " + destino + " por nuestras aerolineas:")
+        print()
+        hayVuelos = False
+
+        aerolineasDisponibles = Aerolinea.getAerolineas()
+        i = 0
+        while i < len(aerolineasDisponibles):
+            aerolinea = aerolineasDisponibles[i]
+            vuelosPorDestino = aerolinea.buscarVueloPorDestino(aerolinea.vuelosDisponibles(aerolinea.getVuelos()), destino)
+            if len(vuelosPorDestino) != 0:
+                Admin.mostrarTablaDeVuelos(aerolinea, vuelosPorDestino)
+                hayVuelos = True
+            i += 1
+        if hayVuelos == False:
+            print("Lo sentimos, no tenemos vuelos disponibles para ese destino")
+            print()
+        return hayVuelos
+
+    # OPCION 2: CONSULTAR VUELO POR DESTINO Y FECHA
+
+    # ESTE METODO RECIBE COMO PARAMETRO UN DESTINO (STRING) Y UNA FECHA (STRING) Y RECORRE CADA AEROLINEA EJECUTANDO EL METODO DE AEROLINEA
+    # buscarVueloPorDestino() SI LOS ENCUENTRA, EJECUTA EL METODO DE AEROLINEA buscarVueloPorFecha() PARA ALMACENAR ESTOS VUELOS EN UNA LISTA
+    # Y MOSTRARLOS POR PANTALLA CON generadorDeTablas.mostrarTablaDeVuelos(). SI ENCONTRO AL MENOS UN VUELO EN ALGUNA AEROLINEA QUE TUVIERA
+    # ASOCIADO ESE DESTINO Y ESA FECHA, RETORNA LA VARIABLE boolean HAYVUELOS CON EL VALOR true, DE LO CONTRARIO RETORNA false.
