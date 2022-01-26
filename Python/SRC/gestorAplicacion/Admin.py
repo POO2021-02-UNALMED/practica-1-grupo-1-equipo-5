@@ -191,3 +191,196 @@ class Admin(object):
                 print()
                 print(tiquete_solicitado)
             
+    # CASE 4 MAIN: MODIFICAR TIQUETE COMPRADO
+    # NOS PERMITE MODIFICAR EL ALOJAMIENTO Y LA SILLA DE UN TIQUETE
+    # PRIMERO SOLICITANDO UN ID DE TIQUETE Y VERIFICAR QUE SI EXISTE,
+    # LUEGO CON UN SWITCH LE PRESENTADOS LAS 2 OPCIONES MODIFICAR ALOJAMIENTO O MODIFICAR SILLA
+    # Y SEGUN LO QUE ESCOJA EJECUTAREMOS EL METODO modificarAlojamiento o modificarSilla
+    @staticmethod
+    def modificarTiquete():
+        print("Ingrese el ID del tiquete que desea modificar.")
+        ID = int(input())
+        tiquete = Aerolinea.BuscarTiquete(ID)
+        if tiquete is None:
+            print("El ID ingresado no se encuentra\n")
+        else:
+            print("Que aspectos de su tiquete desea modificar?")
+            print("1: Modificar alojamiento")
+            print("2: Modificar Silla")
+
+            opcion = int(input())
+
+
+            if opcion == 1:
+                dias = Admin.modificarAlojamiento(tiquete)
+                if dias > 0:
+                    tiquete.asignarPrecio(dias)
+                    print(tiquete)
+            elif opcion == 2:
+                Admin.modificarSilla(tiquete)
+
+    # METODOS DE MODIFICAR TIQUETE
+
+    # ESTE METODO RECIBE UN TIQUETE AL CUAL SE LE VA A MODIFICAR EL ATRIBUTO SILLA:
+    # LO HACE CAMBIANDO EL ATRIBUTO estaDisponible DE SU SILLA ACTUAL A true Y
+    # ASIGNANDO OTRA SILLA HACIENDO USO DEL METODO elegirSilla	
+    @staticmethod
+    def modificarSilla(tiquete):
+
+        print("A que tipo de silla desea cambiar?")
+        silla = Admin.elegirSilla(tiquete.getVuelo())
+        if silla is None:
+            print("Lo sentimos no se encuentran sillas disponibles con esas caracteristicas\n")
+            return
+        tiquete.getSilla().setEstado(True)
+        tiquete.setSilla(silla)
+
+        print("*************************************")
+        print("SU SILLA HA SIDO MODIFICADA CON EXITO")
+        print("*************************************\n")
+        tiquete.asignarPrecio()
+        print(tiquete)
+
+
+    # ESTE METODO RECIBE UN TIQUETE AL CUAL SE LE VA A MODIFICAR EL ATRIBUTO ALOJAMIENTO (DEBE DE TENER UNO YA ASIGANDO
+    # EN CASO CONTRARIO NO LE PERMITITRA CONTINUAR Y LO REGRESARA AL MENU DE ADMINISTRADOR )
+    # SI SI POSEE UN ALOJAMIENTO, EXTRAERA EL DESTINO DEL VUELO DEL TIQUETE E IMPRIMIRA UNA TABLA CON LOS ALOJAMIENTOS 
+    # QUE POSEEN UNA LOCACION IGUAL A ESTE, LUEGO RECIBE EL NOMBRE DEL ALOJAMIENTO QUE DESEE Y BUSCARA UN ALOJAMIENTO
+    # POR ESE NOMBRE Y EN ESA LOCACION EN CASO DE ENCONTRARLO SE LO ASIGNARA AL ATRIBUTO alojamiento DEL TIQUETE
+    @staticmethod
+    def modificarAlojamiento(tiquete_solicitado):
+        if tiquete_solicitado.getAlojamiento() is None:
+            print("Aun no tiene un alojamiento asociado a su tiquete, puede agregar uno en la opcion 3.")
+            print()
+            return 0
+        destino = tiquete_solicitado.getVuelo().getDestino()
+        Admin.mostrarAlojamientosPorUbicacion(destino)
+        print("Por favor ingresa el nombre del alojamiento al que desea cambiar")
+        alojamiento = input()
+        alojamiento_solicitado = Alojamiento.buscarAlojamientoPorNombre(alojamiento)
+        if alojamiento_solicitado is None:
+            print("Lo sentimos, no tenemos un alojamiento con ese nombre\n")
+            return -1
+        elif not alojamiento_solicitado.getLocacion() is destino:
+            print("Lo sentimos, no tenemos un alojamiento con ese nombre en esa locacion\n")
+            return -1
+
+        else:
+            print("Por favor ingrese el numero de dias que se va a quedar en el alojamiento")
+            dias = int(input())
+            tiquete_solicitado.setAlojamiento(alojamiento_solicitado)
+            print("Perfecto! su alojamiento ha sido modificado a " + alojamiento_solicitado.getNombre() + " exitosamente.")
+            print()
+            return dias
+
+    # CASE 5 MAIN: OPCIONES DE ADMINISTRADOR 
+    #	 EN ESTE MENU PARA EL ADMINISTRADOR VAN A INTERACTUAR TODAS LAS CLASES PARA PERMITIR
+    #	 FUNCIONALIDADES ESPECIFICAS PARA CONTROLAR LOS VUELOS Y LOS ALOJAMIENTOS
+    @staticmethod
+    def opcionesAdministrador():
+
+        opcion = None
+        condition = True
+        while condition:
+
+            print("Que opcion desea realizar como administrador?")
+            print("1. Listar Pasajeros.")
+            print("2. Agregar Vuelo.")
+            print("3. Cancelar vuelo.")
+            print("4. Retirar un avion.")
+            print("5. Agregar Alojamiento.")
+            print("6. Eliminar Alojamiento.")
+            print("7. Salir del administrador.")
+            print("Por favor escoja una opcion: ")
+
+            opcion = int(input())
+
+            if opcion == 1:
+                Admin.listarPasajeros()
+            elif opcion == 2:
+                Admin.agregarNuevoVuelo()
+            elif opcion == 3:
+                Admin.cancelarVuelos()
+            elif opcion == 4:
+                Admin.retirarAvion()
+            elif opcion == 5:
+                Admin.nuevoAlojamiento()
+            elif opcion == 6:
+                Admin.retirarAlojamiento()
+            elif opcion == 7:
+                Admin.salirDelAdministrador()
+
+            condition = opcion != 7
+
+    # METODOS DE LAS OPCIONES DE ADMINISTRADOR
+
+    # CASE 1: LISTAR PASAJEROS DE UN VUELO
+
+    #ESTE METODO NO RECIBRE PARAMETROS DE ENTRADAS Y RETORNO ES VACIO. SU OBJETIVO ES
+    #MOSTRAR LAS LISTAS DE PASAJAEROS ASOCIADOS A UN VUELO. 
+    #PARA ESTO ACCEDEMOS A TRAVES DEL ID DEL VUELO E INVOCAMOS EL METODO BUSCAR VUELO POR ID.
+    #AL FINAL NOS MOSTRARA SI EL VUELO TIENE PASAJEROS ASOCIADOS O NO, Y LA INFORMACION ASOCIADA
+    #AL ID DEL TIQUETE DEL PASAJAERO, SU NOMBRE, SU PASARTE Y SU EMAIL. 
+
+    @staticmethod
+    def listarPasajeros():
+        aerolineas = Aerolinea.getAerolineas()
+        Admin.mostrarTablaDeVuelosPorAerolineas(aerolineas)
+
+        print("Ingrese el ID del vuelo: ")
+        IDBusqueda = int(input())
+
+        tiquetes = []
+        vuelo = None
+        for i in aerolineas:
+            if i.buscarVueloPorID(i.getVuelos(), IDBusqueda) is not None:
+                vuelo = i.buscarVueloPorID(i.getVuelos(), IDBusqueda)
+                break
+        if vuelo is None:
+            print("No tenemos vuelos con ese ID.\n")
+            return
+        tiquetes = vuelo.getTiquetes()
+        print("LISTA DE PASAJEROS PARA EL VUELO " + str(IDBusqueda))
+
+        if len(tiquetes) == 0:
+            print("El vuelo aun no tiene pasajeros asociados \n")
+        else:
+            Admin.mostrarTablaDePasajeros(tiquetes)
+
+    # CASE 2: AGREGAR NUEVO VUELO A UNA AEROLINEA
+    #	 ESTE METODO NO RECIBE PARAMETROS DE ENTRADA PORQUE SE LE PIDE AL USUARIO ADMINISTRADOR INGREGAR 
+    #	   POR CONSOLA LOS DATOS NECESARIOS PARA AGREGAR UN NUEVO VUELO A UN AEROLINEA.
+    #	   PARA ESTO SE HARA UNA VERFICACION DE LA EXISTENCIA DE LA AEROLINEA Y POSTERIOEMENTE SE RECIBIRAN LOS
+    #	   PARAMETROS NECESARIOS PARA INSTANCIAR UN VUELO Y AREGARLO AL ARREGLO DE VUELOS QUE LA AEROLINEA
+    @staticmethod
+    def agregarNuevoVuelo():
+        aerolineas = Aerolinea.getAerolineas()
+        print("AGREGAR NUEVO VUELO \n")
+        Admin.mostrarTablaDeAerolineas(aerolineas)
+        print("Ingrese el nombre de la aerolinea para agregar vuelo\n")
+        nombreAerolinea = input()
+
+        existe = False
+        for i in aerolineas:
+            if  i.getNombre().lower() == nombreAerolinea.lower():
+                existe = True
+
+        while existe == False:
+            print("\nESA AEROLINEA NO EXISTE")
+            print("Ingrese un nombre del listado anterior\n")
+            nombreAerolinean = input()
+            existe = nombreAerolinean in list
+        print()
+
+        print("Ingrese el ID del nuevo vuelo (3 cifras):")
+        iD = int(input())
+        aerolinea_busqueda = Aerolinea.buscarAerolineaPorNombre(nombreAerolinea)
+        while len(str(iD)) != 3:
+            print("Por favor ingrese un ID de 3 cifras.")
+            iD = int(input())
+        while aerolinea_busqueda.buscarVueloPorID(aerolinea_busqueda.getVuelos(), iD) is not None:
+            print("El ID que ingreso ya esta en uso, por favor ingrese uno distinto.")
+            iD = int(input())
+
+        print("\nIngrese el precio:")
+        precio = int(input())
