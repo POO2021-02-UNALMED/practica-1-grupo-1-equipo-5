@@ -161,7 +161,7 @@ class VentanaSecundaria(Toplevel):
             label.pack()
             lista_general = Admin.consultarVuelosPorDestinoYFecha(destino, fecha, self.ventana_operaciones)
         else:
-            label = Label(self.ventana_operaciones, text = "Estos son los vuelos disponibles hacia: " + destino + "por nuestras aerolineas")
+            label = Label(self.ventana_operaciones, text = "Estos son los vuelos disponibles hacia: " + destino + " por nuestras aerolineas")
             label.pack()
             lista_general = Admin.consultarVuelosPorDestino(destino, self.ventana_operaciones)
         if len(lista_general[0]) ==0:
