@@ -23,8 +23,8 @@ from gestorAplicacion.hangar.Ubicacion import Ubicacion
 class Admin(object):
 
     # DESERIALIZACION DE DATOS
-    picklefile = open('Aerolineas','rb')
-    picklefile2 = open('Alojamientos','rb')
+    picklefile = open('./baseDeDatos/Aerolineas','rb')
+    picklefile2 = open('./baseDeDatos/Alojamientos','rb')
     Aerolinea.setAerolineas(pickle.load(picklefile))
     Alojamiento.setAlojamientos(pickle.load(picklefile2))
     picklefile.close()
@@ -282,8 +282,8 @@ class Admin(object):
     #FINALIZA EL SISTEMA DE ADMINISTRACION DE VUELOS Y SERIALIZA LOS OBJETOS
     @staticmethod
     def salirDelSistema():
-        picklefile = open('Aerolineas', 'wb')
-        picklefile2 = open('Alojamientos','wb')
+        picklefile = open('./baseDeDatos/Aerolineas', 'wb')
+        picklefile2 = open('./baseDeDatos/Alojamientos','wb')
         pickle.dump(Aerolinea._aerolineas, picklefile)
         pickle.dump(Alojamiento._alojamientos,picklefile2)
         picklefile.close()
