@@ -841,7 +841,72 @@ class VentanaSecundaria(Toplevel):
         criterios_alojamiento =["Nombre Alojamiento","Locacion","Precio por dia","Numero de estrellas (1-5)"]
         self.ventana_operaciones.pack_forget()
         self.ventana_operaciones = FieldFrame(self.frame,"Datos",criterios_alojamiento,"VALORES",None,None,["string","string","int","int"])
+        
+        # Es llamada cuando se presiona el botón aceptar del formulario que recoge los datos del nuevo alojamiento, para pasarselos y crear un nuevo
+        # alojamiento con la clase auxiliar
+        
+        def crearAlojamiento():
+        
+            try:
+                hay_excepcion =self.ventana_operaciones.aceptar()
+            except ExcepcionEnteroString as owo:
+                messagebox.showerror(title="Error",message=owo.mensaje_error_inicio)
+                self.agregarAlojamiento()
+                return
+            except ExcepcionEnteroFloat as owo:
+                messagebox.showerror(title="Error",message=owo.mensaje_error_inicio)
+                self.agregarAlojamiento()
+                return
+            except ExcepcionStringNumero as owo:
+                messagebox.showerror(title="Error",message=owo.mensaje_error_inicio)
+                self.agregarAlojamiento()
+                return
+
+            if hay_excepcion:
+                self.agregarAlojamiento()
+                return
             
+            Admin.nuevoAlojamiento(self.ventana_operaciones.valor_entradas)
+            mensaje = messagebox.showinfo(title = "Agregar alojamiento", message = "El alojamiento se ha agregado a nuestra lista correctamente!")
+        
+        self.ventana_operaciones.botonAceptar.config(command=crearAlojamiento)
+
+    #-----------------------------------------------------------------------------------------------------------------------------------
+    # Elimina un alojamiento de la lista de alojamientos al hacer clic en uno de ellos al interior del combobox
+    # Obtenemos el nombre del alojamiento que se desea eliminar, y con la clase auxiliar lo eliminamos de la lista,
+    # Comunicandole al usuario si la operacion fue realizada con exito.
+
+    def eliminarAlojamiento(self):
+        self.label_proceso.config(text = "Eliminar un alojamiento")
+        self.label_descripcion.config(text = "Permite eliminar un alojamiento de la lista de alojamientos asociados, escribiendo el nombre del alojamiento que se desea retirar")
+    
+        self.ventana_operaciones.pack_forget()
+        self.ventana_operaciones = Frame(self.frame)
+        self.ventana_operaciones.pack(ipadx = 2, ipady =2, padx = 2, pady= 2,fill=X)
+        lista_alojamientos= Admin.obtenerAlojamientos()
+        
+        # Es llamada cuando se selecciona un alojamiento de los alojamientos disponibles, se recoge el nombre del alojamiento y con ayuda
+        # de la clase auxiliar, es eliminada de la lista de alojamientos
+        
+        def alojamientoSeleccionado(event):
+            texto = combobox.get()
+            nombre_alojamiento = texto.split("---")[0]
+            alojamiento_encontrado = Admin.retirarAlojamiento(nombre_alojamiento)
+            if alojamiento_encontrado:
+                mensaje = messagebox.showinfo(title = "Eliminar Alojamiento", message = "El alojamiento se ha eliminado de nuestra lista correctamente!")
+            else:
+                mensaje = messagebox.showinfo(title = "Eliminar Alojamiento", message = "El alojamiento ya ha sido eliminado.")
+        combobox = Combobox(self.ventana_operaciones,values=lista_alojamientos,width=50)
+        combobox.pack()
+        combobox.bind("<<ComboboxSelected>>",alojamientoSeleccionado)
+        
+    #-------------------------------------------------------------------------------------------------------------------------------------   
+    # Muestra un Message Box con los nombres de los autores de la aplicación.
+    def ayuda(self):
+        ayudaPopUp = messagebox.showinfo(title = "Desarrolladores", message = "David Esteban Martin Acosta\n Alvaro Javier Guerrero Recalde\n Jeronimo Salazas Salazar\n Karen Rivera Giraldo\n")
+
+
+from Admin import Admin            
 
     
 
