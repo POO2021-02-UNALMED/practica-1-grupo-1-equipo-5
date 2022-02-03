@@ -352,6 +352,7 @@ class VentanaSecundaria(Toplevel):
         # para adjuntarselos al tiquete y recalcular su precio
         
         def eventoAgregarAlojamiento():
+            self.label_descripcion.config(text = "Agregue un alojamiento a su tiquete de compra, seleccionando uno de la lista")
             formulario.pack_forget()
 
             try:
@@ -392,7 +393,8 @@ class VentanaSecundaria(Toplevel):
             # Se llama a la funcion cuando se selecciona un alojamiento de la lista de alojamientos, se verifica que esta disponible
             # y posteriormente se pregunta por los días de estadía, para terminar imprimiendo por pantalla el tiquete
             def alojamientoSeleccionado(nombre):
-
+                self.label_descripcion.config(text = "Ingrese los dias que se va a quedar en el alojamiento seleccionado")
+                
                 self.ventana_operaciones.pack_forget()
                 alojamiento_solicitado=Admin.solicitarAlojamiento(tiquete_solicitado,nombre)
                 if alojamiento_solicitado == None:
@@ -402,6 +404,7 @@ class VentanaSecundaria(Toplevel):
                 # Es llamada cuando se ingresan los dias de estadia, se encarga de añadir el alojamiento al tiquete
                 # con la clase auxiliar, y por ultimo imprime un resumen de la compra sumandole el precio del alojamiento
                 def diasDeEstadia():
+                    self.label_descripcion.config(text = "Gracias por su compra! Este es su tiquete:")
                     self.ventana_operaciones.pack_forget()
 
                     try:
@@ -502,6 +505,9 @@ class VentanaSecundaria(Toplevel):
         # agregar alojamiento para modificar el alojamiento que se tenia previamente.
 
         def modificarAlojamiento(tiquete):
+            self.label_proceso.config(text = "Modificar alojamiento")
+            self.label_descripcion.config(text = "Cambie el alojamiento que agrego a su tiquete de compra, seleccionando uno nuevo de la lista")
+            
             self.ventana_operaciones.pack_forget()
             self.ventana_operaciones = Frame(self.frame)
             self.ventana_operaciones.pack()
@@ -523,6 +529,8 @@ class VentanaSecundaria(Toplevel):
             # y posteriormente se pregunta por los días de estadía, para terminar imprimiendo por pantalla el tiquete
            
             def alojamientoSeleccionado(nombre):
+                self.label_descripcion.config(text = "Ingrese los dias que se va a quedar en el alojamiento seleccionado")
+                
                 alojamiento_solicitado=Admin.solicitarAlojamiento(tiquete,nombre)
                 if alojamiento_solicitado == None:
                     mensaje = messagebox.showinfo(title = "Modificar alojamiento", message = "Ese alojamiento no está disponible")
@@ -533,7 +541,7 @@ class VentanaSecundaria(Toplevel):
                 # con la clase auxiliar, y por ultimo imprime un resumen de la compra sumandole el precio del alojamiento
                 
                 def diasDeEstadia():
-                    
+                    self.label_descripcion.config(text = "Gracias por su compra! Este es su tiquete:")
                     try:
                         hay_excepcion = self.ventana_operaciones.aceptar()
                     except ExcepcionEnteroString as owo:
@@ -549,6 +557,7 @@ class VentanaSecundaria(Toplevel):
                         alojamientoSeleccionado(nombre)
                         return
                     self.ventana_operaciones.pack_forget()
+                    
                     Admin.agregarAlojamiento(tiquete,alojamiento_solicitado,self.ventana_operaciones.valor_entradas[0])
                     messagebox.showinfo(title="Modificar alojamiento",message= "Su alojamiento ha sido modificado con exito.")
                     self.ventana_operaciones = Label(self.frame)
@@ -599,7 +608,7 @@ class VentanaSecundaria(Toplevel):
             # por pantalla
 
             def envioDatos():
-
+                
                 try:
                     hay_excepcion = formulario.aceptar()
                 except ExcepcionStringNumero as owo:
@@ -610,6 +619,9 @@ class VentanaSecundaria(Toplevel):
                 if hay_excepcion:
                     self.modificarSilla(numero,tiquete)
                     return
+                
+                self.label_descripcion.config(text = "Gracias por su compra! Este es su tiquete:")
+                
                 datos_silla= formulario.valor_entradas
                 silla = Admin.elegirSilla(tiquete,datos_silla)
 
