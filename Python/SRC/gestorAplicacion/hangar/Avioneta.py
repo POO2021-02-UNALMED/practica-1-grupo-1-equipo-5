@@ -1,3 +1,4 @@
+#FALTA MODIFICAR ALGUNAS COSAS PUNTUALES
 import math
 from gestorAplicacion.hangar.Aeronave import Aeronave
 from gestorAplicacion.hangar.Silla import Silla
@@ -42,7 +43,7 @@ class Avioneta(Aeronave):
             else:
                 ubicacion = Ubicacion.PASILLO
 
-            self.getSILLASECONOMICAS().append(Silla(Clase.EJECUTIVA, numPosicion, ubicacion))
+            self.getSILLASECONOMICAS().append(Silla(Clase.ECONOMICA, numPosicion, ubicacion))
 
     @staticmethod
     def getNumSillasEconomicas():
@@ -52,12 +53,12 @@ class Avioneta(Aeronave):
     def getNumSillasEjecutivas():
         return Avioneta._NUM_SILLAS_EJECUTIVAS
 
-    #
+    #	
     #	 * Este método recorreran los arreglos de sillas ejecutivos y economicas de cada
     #	 * avión y avioneta
     #	 * para verificar la cantidad de sillas que estan ocupadas y retornaran dicha
     #	 * cantidad
-    #
+    #	 
     def Calcular_Sillas_Ocupadas(self):
         cont = 0
         for i in self.getSILLASECONOMICAS():
@@ -68,11 +69,11 @@ class Avioneta(Aeronave):
                 cont += 1
         return cont
 
-    #
+    #	
     #	 * Este método recibe un tipo de dato double de la distancia que hay desde el
     #	 * lugar de origen al lugar de destino
     #	 * y retornara el costo total de gasolina por recorrer el trayecto
-    #
+    #	 
 
     def Calcular_Consumo_Gasolina(self, distancia_en_km):
         consumido = self.getGastoGasolina() * distancia_en_km

@@ -57,13 +57,13 @@ class Aeronave:
     #	LAS LISTAS DE LA AERONAVE QUE LO LLAMA UNA SILLA CON LA UBICACION Y TIPO QUE SE INGRESAN.
     def buscarSillaPorUbicacionyTipo(self, ubicacion, tipo):
 
-        if tipo.casefold() == "ECONOMICA".casefold():
+        if tipo.lower() == "ECONOMICA".lower():
             for i in self._SILLAS_ECONOMICAS:
-                if i.isEstado() and i.getUbicacion() is ubicacion:
+                if i.isEstado() and i.getUbicacion() == ubicacion:
                     return i
-        elif tipo.casefold() == "EJECUTIVA".casefold():
+        elif tipo.lower() == "EJECUTIVA".lower():
             for i in self._SILLAS_EJECUTIVAS:
-                if i.isEstado() and i.getUbicacion() is ubicacion:
+                if i.isEstado() and i.getUbicacion() == ubicacion:
                     return i
         return None
     #	ESTE METODO RECORRAN LOS ARREGLOS DE SILLAS EJECUTIVOS Y ECONOMICAS DE CADA AVION Y AVIONETA 
