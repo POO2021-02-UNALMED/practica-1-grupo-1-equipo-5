@@ -59,4 +59,54 @@ class FieldFrame (Frame):
         #Boton borrar
         self.botonBorrar = Button(self, width=10, text='Borrar', font = ("Segoe UI", 10), relief=GROOVE, cursor='hand2', command = self.borrarValores)
         self.botonBorrar.grid(row = row_count, column = 1, ipadx=20, padx=30, pady = 5)
+ 
+    #Guarda los datos puestos en los cuadros de texto en la lista valor_entradas
+    #Ademas, verifica que todos los textos tengan un valor, y en caso de que falte alguno se disparara una excepcion
+    #en la que por medio de una ventana de advertencia se le indicara al usuario cuales campos le faltan por llenar.
+ 
+    def aceptar(self):
+        self.valor_entradas=[] 
+        for criterio in self.entradas:
+            self.valor_entradas.append(self.getValue(criterio))
+        try:
+            valores_vacios = ""
+            hay_excepcion = False
+            for i in range (len(self.valor_entradas)):
+                if self.valor_entradas[i] == "":
+                    hay_excepcion = True
+                    valores_vacios += "\n"+list(self.entradas.keys())[i]+","
+            if hay_excepcion:
+                raise ExcepcionEntradasVacias(valores_vacios)
+                
+        except ExcepcionEntradasVacias as uwu:
+            messagebox.showwarning(title="Aviso",message=uwu.mensaje_error_inicio)
+            return hay_excepcion
+
+            
+        for i in range (len(self.valor_entradas)):
+            if self.tipo_esperado[i] == "int": 
+                
+                if not self.valor_entradas[i].isdigit():
+                    Admin.isFloat(self.valor_entradas[i])
+                    raise ExcepcionEnteroString(self.valor_entradas[i])
+
+            elif self.tipo_esperado[i] == "string":
+                
+                if self.valor_entradas[i].isdigit():
+                    raise ExcepcionStringNumero(self.valor_entradas[i])
+                
+        self.borrarValores()
+        return hay_excepcion
+            
+
+    #Permite borrar  todos los campos de los cuadros de texto
+    def borrarValores(self):
+        for criterio in self.entradas:
+            entrada = self.entradas[criterio]
+            entrada.delete(0, "end")
+    
+    #Retorna el valor del criterio del argumento(criterio) que se le pase
+    def getValue(self, criterio):
+        entrada = self.entradas[criterio]
+        return entrada.get()
     
