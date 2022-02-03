@@ -8,9 +8,9 @@ from gestorAplicacion.hangar.Ubicacion import Ubicacion
 from gestorAplicacion.alojamiento.Alojamiento import Alojamiento
 
 class Tiquete:
-    #CONSTRUCTORES NO PODEMOS TENER MULTIPLES CONSTRUCTORES, MIRAR QUE HACER AHI
-#JAVA TO PYTHON CONVERTER TODO TASK: There is no Python equivalent to multiple constructors:
-#ORIGINAL LINE: public Tiquete(int id, int precio, Vuelo vuelo)
+
+
+    #CONSTRUCTOR
     def __init__(self, id, precio, vuelo):
         self._id = id
         self._precio = precio
@@ -26,7 +26,7 @@ class Tiquete:
     #	  es guardado en el atributo precio de cada instancia
     def asignarPrecio(self,*args):
         hayDescuento = False
-        precio_total =self._vuelo.getPrecio() + self.getSilla().getClase().getPrecio()
+        precio_total =self._vuelo.getPrecio() + self.getSilla().getClase().value
         if self._pasajero.getEdad()<5:
             hayDescuento = True
             self._precio = int((precio_total - (precio_total*0.25)))
@@ -38,9 +38,10 @@ class Tiquete:
 
         if len(args) != 0 :
 
-            self._precio += self._alojamiento.calcularPrecio(args[0])
+            self._precio += self._alojamiento.calcularPrecio(args[0]) 
 
         return hayDescuento
+
 
 
     def confimarCompra(self):
@@ -81,6 +82,7 @@ class Tiquete:
 
     def setSilla(self, silla):
         self._silla = silla
+        silla.setEstado(False)
 
     def getPasajero(self):
         return self._pasajero
@@ -90,6 +92,6 @@ class Tiquete:
 
     def getAlojamiento(self):
         return self._alojamiento
-
+        
     def setAlojamiento(self, alojamiento):
         self._alojamiento = alojamiento

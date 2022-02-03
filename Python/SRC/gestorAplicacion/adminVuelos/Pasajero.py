@@ -30,6 +30,8 @@ class Pasajero:
 
     def getEmail(self):
         return self._email
-
+        
     def setEmail(self, email):
         self._email = email
+
+
