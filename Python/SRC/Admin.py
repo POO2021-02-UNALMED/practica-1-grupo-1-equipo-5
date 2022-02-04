@@ -76,9 +76,6 @@ class Admin(object):
         #SE CREA EL OBJETO PASAJERO Y SE LE ASIGNA AL TIQUETE GENERADO EN EL METODO
         pasajero = Pasajero(pasaporte, nombre, tiquete, edad, correo)
         tiquete.setPasajero(pasajero)
-        print(type(pasajero))
-        print(pasajero.nombre)
-        print(pasajero.getPasaporte())
 
     #--------------------------------------------------------------------------------------------------------------------------------------
     # BUSCA UN TIQUETE CON EL ID PASADO Y SE VERIFICA SI EL TIQUETE TIENE YA UN ALOJAMIENTO SELECCIONADO, SEGUN ESTO SE RETORNA UN TIQUETE
