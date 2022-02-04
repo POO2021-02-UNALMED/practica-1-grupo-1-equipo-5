@@ -9,6 +9,7 @@ class ventana_inicio(Tk):
         self.title("Inicio")
         self.option_add("*tearOff", False)
         self.iconbitmap('./imagenes/icono.ico')
+        self.resizable(0,0)
         # CONFIGURACION VR--TEXTO HDV DESARROLLADORES
         self.varHDV = StringVar()
         self.varHDV.set("Desarrolladores")
