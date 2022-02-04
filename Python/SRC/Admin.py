@@ -138,7 +138,7 @@ class Admin(object):
         else:    
             tiquete.getSilla().setEstado(True) #SE DESOCUPA LA SILLA QUE SE TENIA ANTERIORMENTE
             tiquete.setSilla(silla)
-            tiquete.asignarPrecio() #SE RECALCULA EL PRECIO EN BASE A LA NUEVA SILLA
+        tiquete.asignarPrecio() #SE RECALCULA EL PRECIO EN BASE A LA NUEVA SILLA
 
     #--------------------------------------------------------------------------------------------------------------------------------------
     #ESTE METODO RECIBE UN LABEL Y RETORNA UN LABEL. SU OBJETIVO ES MOSTRAR LAS LISTAS DE PASAJAEROS ASOCIADOS A UN VUELO. 
