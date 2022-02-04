@@ -17,7 +17,7 @@ class VentanaSecundaria(Toplevel):
         self.title("Ventana secundaria")
         self.option_add('*tearOff', FALSE)
         self.title("Sistema de reserva de vuelos")
-        self.geometry("800x500")
+        self.geometry("800x550")
         self.iconbitmap('./imagenes/icono.ico')
         self.ventanaInicio = None
         self.focus()
@@ -33,7 +33,7 @@ class VentanaSecundaria(Toplevel):
         self.frame_descripcion.pack(ipadx=2, padx=2,ipady=2,pady=2,fill=X)
         self.frame_descripcion.config(bd=2)
         self.ventana_operaciones = Frame(self.frame,relief="groove",bd=2)
-        self.ventana_operaciones.pack(ipadx = 2, ipady =2, padx = 2, pady= 2,fill=X)
+        self.ventana_operaciones.pack(ipadx = 2, ipady =2, padx = 2, pady= 2,fill=BOTH,expand = True)
         #FIN ZONA DE FRAME
 
         #ZONA DE Menus
